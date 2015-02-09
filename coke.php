@@ -1,18 +1,21 @@
 <?php
 
   require_once('lib/whatsapp/whatsprot.class.php');
+  require_once('lib/requests/Requests.php');
   require_once('coke_events.php');
   require_once('util.php');
 
-  $phone_number = $argv[1];
-  $password = $argv[2];
-  $name = $argv[3];
-  $timeout = intval($argv[4]);
-  $debug = true;
+  Requests::register_autoloader();
 
-  l('Phone number: '.$phone_number);
+  $username = $argv[1];
+  $password = $argv[2];
+  $nickname = $argv[3];
+  $timeout = intval($argv[4]);
+  $debug = false;
+
+  l('Phone number: '.$username);
   l('Password: '.$password);
-  l('Name: '.$name);
+  l('Name: '.$nickname);
   l('Timeout: '.$timeout);
 
   $w = new WhatsProt($username, $identity, $nickname, $debug);
@@ -27,7 +30,7 @@
   $secs = 0;
   while($secs < $timeout) {
     
-    $w->pollMessage(false);
+    $w->pollMessage(true);
 
     $mid = microtime(true);
     $secs = intval($mid - $start);
@@ -38,3 +41,6 @@
   $timediff = intval($end - $start);
 
   l('time: '.$timediff);
+
+
+  $w->disconnect();

@@ -9,9 +9,9 @@
   Requests::register_autoloader();
 
   $debug = false;
-  $phone_number = $argv[1];
+  $username = $argv[1];
   $password = $argv[2];
-  $name = $argv[3];
+  $nickname = $argv[3];
   $timeout = intval($argv[4]);
   $identity = "";
 
