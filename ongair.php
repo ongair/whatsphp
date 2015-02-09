@@ -9,9 +9,10 @@
   Requests::register_autoloader();
 
   $debug = false;
-  $username = "254772246595";
-  $password = "Pt3FclgdBmhWJx/60hPCof7n2SA=";
-  $nickname = "Coke";
+  $phone_number = $argv[1];
+  $password = $argv[2];
+  $name = $argv[3];
+  $timeout = intval($argv[4]);
   $identity = "";
 
 
