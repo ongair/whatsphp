@@ -20,7 +20,6 @@
   $cfg->set_default_connection('development');
   $cfg->set_model_directory('models');
 
-  // mysql://user:password@unix(/tmp/mysql.sock)/database
 
   $cfg->set_connections(
     array(
