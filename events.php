@@ -17,7 +17,9 @@
       'onConnect',
       'onDisconnect',
       'onGetMessage',
-      'onGetReceipt'
+      'onGetReceipt',
+      'onGetGroupMessage',
+      'onGetImage'
     );
 
     public function onGetMessage( $me, $from, $id, $type, $time, $name, $body )
@@ -31,8 +33,7 @@
         $url = $this->url.'/messages';
         $data = array('account' => $me, 'message' => array( 'text' => $body, 'phone_number' => get_phone_number($from), 'message_type' => 'Text', 'whatsapp_message_id' => $id, 'name' => $name) );
         
-        $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
-        Requests::post($url, $headers, json_encode($data));
+        $this->post($url, $data);
       }      
     }
 
@@ -50,7 +51,28 @@
 
         // pubnub message delivered
       } 
+    }
 
+    public function onGetGroupMessage( $me, $from_group_jid, $from_user_jid, $id, $type, $time, $name, $body )
+    {
+      l("Got group message: $body - $from_group_jid");
+
+      if (!$this->exists($id)) {
+
+        $url = $this->url.'/receive_broadcast';
+        $data = array('account' => $me, 'message' => array( 'text' => $body, 'group_jid' => $from_group_jid, 'message_type' => 'Text', 'whatsapp_message_id' => $id, 'name' => $name, 'jid' => get_phone_number($from_user_jid) ));
+        
+        $this->post($url, $data);        
+      }
+    }
+
+    public function onGetImage( $me, $from, $id, $type, $time, $name, $size, $image_url, $file, $mimeType, $fileHash, $width, $height, $preview, $caption )
+    {
+      l('Got image : '.$url.' '.$me);      
+
+      $post_url = $this->url.'/upload';
+      $data = array('account' => $me, 'message' => array('url' => $image_url, 'message_type' => 'Image', 'phone_number' => get_phone_number($from), 'whatsapp_message_id' => $id, 'name' => $name ));
+      $this->post($post_url, $data);
     }
 
     public function onConnect($mynumber, $socket) {
@@ -62,6 +84,11 @@
     {
       l("Disconnected");
       $this->client->toggleConnection(false);
+    }
+
+    private function post($url, $data) {
+      $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
+      Requests::post($url, $headers, json_encode($data));
     }
 
     private function exists($id) {      

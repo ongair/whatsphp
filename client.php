@@ -3,7 +3,6 @@
   require_once('models/Account.php');  
   require_once('models/JobLog.php');
   require_once('events.php');  
-  // require_once('lib/pubnub/autoloader.php');
   
   class Client
   {
