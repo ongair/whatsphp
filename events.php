@@ -19,7 +19,11 @@
       'onGetMessage',
       'onGetReceipt',
       'onGetGroupMessage',
-      'onGetImage'
+      'onGetImage',
+      'onGetGroupImage',
+      'onGetVideo',
+      'onGetGroupVideo',
+      'onGetLocation'
     );
 
     public function onGetMessage( $me, $from, $id, $type, $time, $name, $body )
@@ -66,12 +70,42 @@
       }
     }
 
+    public function onGetGroupImage( $me, $from_group_jid, $from_user_jid, $id, $type, $time, $name, $size, $image_url, $file, $mimeType, $fileHash, $width, $height, $preview, $caption )
+    {
+      l("Got group image: $image_url");
+
+      if (!$this->exists($id)) {
+        $post_url = $this->url.'/upload';
+        $data = array('account' => $me, 'message' => array('url' => $image_url, 'message_type' => 'Image', 'group_jid' => $from_group_jid, 'phone_number' => get_phone_number($from_user_jid), 'whatsapp_message_id' => $id, 'name' => $name ));
+        $this->post($post_url, $data);
+      }
+    }
+
     public function onGetImage( $me, $from, $id, $type, $time, $name, $size, $image_url, $file, $mimeType, $fileHash, $width, $height, $preview, $caption )
     {
-      l('Got image : '.$url.' '.$me);      
-
       $post_url = $this->url.'/upload';
       $data = array('account' => $me, 'message' => array('url' => $image_url, 'message_type' => 'Image', 'phone_number' => get_phone_number($from), 'whatsapp_message_id' => $id, 'name' => $name ));
+      $this->post($post_url, $data);
+    }
+
+    public function onGetVideo( $me, $from, $id, $type, $time, $name, $video_url, $file, $size, $mimeType, $fileHash, $duration, $vcodec, $acodec, $preview, $caption )
+    {
+      $post_url = $this->url.'/upload';
+      $data = array('account' => $me, 'message' => array('url' => $video_url, 'message_type' => 'Video', 'phone_number' => get_phone_number($from), 'whatsapp_message_id' => $id, 'name' => $name ));
+      $this->post($post_url, $data);
+    }
+
+    public function onGetGroupVideo( $me, $from_group_jid, $from_user_jid, $id, $type, $time, $name, $url, $file, $size, $mimeType, $fileHash, $duration, $vcodec, $acodec, $preview, $caption )
+    {
+      $post_url = $this->url.'/upload';
+      $data = array('account' => $me, 'message' => array('url' => $video_url, 'message_type' => 'Video', 'group_jid' => $from_group_jid, 'phone_number' => get_phone_number($from_user_jid), 'whatsapp_message_id' => $id, 'name' => $name ));
+      $this->post($post_url, $data);
+    }
+
+    public function onGetLocation( $me, $from, $id, $type, $time, $name, $name, $longitude, $latitude, $url, $preview )
+    {
+      $post_url = $this->url.'/locations';
+      $data = array('account' => $me, 'location' => array('latitude' => $latitude, 'longitude' => $longitude, 'preview' => '', 'phone_number' => get_phone_number($from), 'whatsapp_message_id' => $id, 'name' => $name));
       $this->post($post_url, $data);
     }
 
