@@ -24,8 +24,6 @@
         
         $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
         Requests::post($url, $headers, json_encode($data));
-        
-        # post_data($url, $data);
       }      
     }
 
