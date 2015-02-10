@@ -5,8 +5,7 @@
   require_once('lib/requests/Requests.php');
   require_once('lib/phpdotenv/Dotenv.php');  
   require_once('client.php');
-  require_once('util.php');
-  require_once('events.php');
+  require_once('util.php');  
   
   Requests::register_autoloader();
   Dotenv::load(__DIR__);

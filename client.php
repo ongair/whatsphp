@@ -1,6 +1,9 @@
 <?php
 
-  require 'models/Account.php';  
+  require_once('models/Account.php');  
+  require_once('models/JobLog.php');
+  require_once('events.php');  
+  // require_once('lib/pubnub/autoloader.php');
   
   class Client
   {
@@ -16,10 +19,10 @@
       $this->nickname = $nickname;
       $this->connected = false;
       $this->identity = "";
+      $debug = (bool) getenv('DEBUG');
 
       $this->_init_db();
-      $debug = (bool) getenv('DEBUG');
-      
+      $this->account_id = $this->get_account_id();          
 
       if ($this->is_active()) {
         $this->wa = new WhatsProt($this->account, $this->identity, $this->nickname, $debug);
@@ -40,6 +43,7 @@
         while($secs < $timeout) {
           
           $this->wa->pollMessage(true);
+          $this->get_jobs();
 
           $mid = microtime(true);
           $secs = intval($mid - $start);
@@ -54,6 +58,32 @@
 
     public function toggleConnection($status) {
       $this->connected = $status;
+    }
+
+    private function get_jobs() {
+      $jobs = JobLog::all(array('sent' => false, 'account_id' => $this->account_id, 'pending' => false));
+      l("Num jobs ".count($jobs));
+
+      foreach ($jobs as $job) {        
+        $this->do_job($job);
+      }
+    }
+
+    private function do_job($job) {
+      if ($job->method == "sendMessage") {
+        $this->send_message($job);
+      }      
+    }
+
+    private function send_message($job) {
+      $id = $this->wa->sendMessage($job->targets, $job->args);      
+      $job->whatsapp_message_id = $id;
+      $job->sent = true;
+      $job->save();
+    }
+
+    public function get_account_id() {
+      return Account::find_by_phone_number($this->account)->id;
     }
 
     private function is_active() {
