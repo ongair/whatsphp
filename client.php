@@ -71,7 +71,10 @@
     private function do_job($job) {
       if ($job->method == "sendMessage") {
         $this->send_message($job);
-      }      
+      }
+      elseif ($job->method == "sendImage") {
+        $this->send_image($job);
+      }       
     }
 
     private function send_message($job) {
@@ -79,6 +82,10 @@
       $job->whatsapp_message_id = $id;
       $job->sent = true;
       $job->save();
+    }
+
+    private function send_image($job) {
+
     }
 
     public function get_account_id() {
