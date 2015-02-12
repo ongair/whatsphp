@@ -41,11 +41,12 @@
       }      
     }
 
-    public function onGetReceipt( $from, $id, $offline, $retry )
+    public function onGetReceipt( $from, $id, $offline, $retry, $participant )
     {
-      l("Got receipt ".$id);
+      l('Got receipt '.$id);
       
       $job = JobLog::find_by_whatsapp_message_id_and_account_id($id, $this->client->get_account_id());
+      l('Method '.$job->method);
       if ($job->method == "sendMessage") {        
 
         $message = Message::find_by_id($job->message_id);
@@ -54,6 +55,12 @@
         $message->save();
 
         // pubnub message delivered
+      }
+      elseif ($job->method == 'broadcast_Text') {        
+        $data = array('account' => $this->client->get_account(), 'receipt' => array('message_id' => $id, 'phone_number' => get_phone_number($participant) ));
+        $url = $this->url.'/broadcast_receipt';
+
+        $this->post($url, $data);
       } 
     }
 
@@ -123,6 +130,10 @@
     private function post($url, $data) {
       $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
       Requests::post($url, $headers, json_encode($data));
+    }
+
+    private function is_broadcast_receipt($id) {
+      return strpos($id, 'broadcast-') !== false;
     }
 
     private function exists($id) {      

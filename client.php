@@ -1,6 +1,7 @@
 <?php
 
   require_once('models/Account.php');  
+  require_once('models/Asset.php');  
   require_once('models/JobLog.php');
   require_once('events.php');  
   
@@ -74,7 +75,16 @@
       }
       elseif ($job->method == "sendImage") {
         $this->send_image($job);
-      }       
+      }     
+      elseif ($job->method == "broadcast_Text") {
+        $this->broadcast_text($job);
+      }  
+    }
+
+    private function broadcast_text($job) {
+      $job->whatsapp_message_id = $this->wa->sendBroadcastMessage(explode(',',$job->targets), $job->args);
+      $job->sent = true;
+      $job->save();
     }
 
     private function send_message($job) {
@@ -85,11 +95,47 @@
     }
 
     private function send_image($job) {
+      
+      $args = explode(',', $job->args);
+      $asset_id = $args[0];
+      $asset_url = getenv('URL').$args[1];
 
+      l('Url: '.$asset_url);
+
+
+      $asset = Asset::find_by_id($asset_id);
+      $file_name = 'tmp/'.$asset->file_file_name;
+
+      l('File name: '.$file_name);
+
+      if ($this->download($asset_url, $file_name)) {
+        
+        $job->whatsapp_message_id = $this->wa->sendMessageImage($job->targets, $file_name);
+        $job->sent = true;
+        $job->save();
+
+      }
+    }
+
+    private function download($url, $dest) {
+      try {
+        $data = file_get_contents($url);
+        $handle = fopen($dest, "w");
+        fwrite($handle, $data);
+        fclose($handle);
+        return true;  
+      } catch (Exception $e) {
+        l('Caught exception: '.$e->getMessage());
+      }
+      return false;
     }
 
     public function get_account_id() {
       return Account::find_by_phone_number($this->account)->id;
+    }
+
+    public function get_account() {
+      return $this->account;
     }
 
     private function is_active() {
