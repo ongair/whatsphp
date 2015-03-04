@@ -24,3 +24,18 @@
     $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
     Requests::post($url, $headers, json_encode($data));
   }
+
+  function _init_db() {
+    $env = getenv('ENV');
+    $db = getenv('DB');
+
+    $cfg = ActiveRecord\Config::instance();      
+    $cfg->set_default_connection($env);
+    $cfg->set_model_directory('models');
+
+    $cfg->set_connections(
+      array(
+        $env => $db
+      )
+    );
+  }  
