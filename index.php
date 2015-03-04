@@ -3,6 +3,9 @@
 require 'vendor/autoload.php';
 require_once('lib/phpdotenv/Dotenv.php');
 require_once('lib/whatsapp/whatsprot.class.php');
+require_once('lib/activerecord/ActiveRecord.php');
+require_once('models/Account.php');
+require_once('util.php');
 
 Dotenv::load(__DIR__);
 
@@ -12,8 +15,16 @@ $app->add(new \JsonApiMiddleware());
 
 // Application status
 $app->get('/status', function () use ($app) {
+
+  // attempt to connect to DB
+  _init_db();
+
+  // $count = Account::count()
+  $count = Account::count(array('conditions' => 'setup = true'));
+
   $app->render(200, array(
-    'running' => true));
+    'running' => true,
+    'active' => $count));
 });
 
 // Request an SMS code
