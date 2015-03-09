@@ -45,6 +45,7 @@ $app->post('/request', function() use ($app) {
     try {
       $w = new WhatsProt($username, $identity, $nickname, false);
       $w->codeRequest('sms', $carrier);
+      $message = 'Code requested';
     } 
     catch(Exception $ex) {
       $message = $ex->getMessage();
@@ -72,12 +73,14 @@ $app->post('/register', function() use ($app) {
 
   if ($debug) {
     $password = "1234567890wa+";
+    $message = 'Activated';
   }
   else {
 
     $w = new WhatsProt($username, $identity, $nickname, false);
     try {
       $result = $w->codeRegister($code);
+      $message = 'Activated';
       $password = $result->pw;
     } 
     catch(Exception $e) {
