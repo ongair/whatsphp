@@ -1,6 +1,7 @@
 {
   "require": {
     "slim/slim": "2.3.*",
-    "entomb/slim-json-api": "dev-master"
+    "entomb/slim-json-api": "dev-master",
+    "vlucas/phpdotenv": "~1.1"
   }
 }
