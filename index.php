@@ -21,9 +21,11 @@ $app->get('/status', function () use ($app) {
 
   // $count = Account::count()
   $count = Account::count(array('conditions' => 'setup = true'));
+  $error = getenv('ERROR') == 'true';
 
   $app->render(200, array(
     'running' => true,
+    'error' => $error,
     'active' => $count));
 });
 
@@ -36,10 +38,14 @@ $app->post('/request', function() use ($app) {
   $debug = $app->request->params('debug') == 'true';
   $identity = $username;
   $message = null;
-  $error = false;
+  $error = getenv('ERROR') == 'true';
 
   if ($debug) {        
     $message = 'Code requested';
+    if ($error) {
+      $message = 'No routes';
+      $error = true;
+    }
   }
   else {
     try {
