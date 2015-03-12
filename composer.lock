@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3e799e43c83d2163fdb97f444550ec63",
+    "hash": "c47c27e4ec6f78ca9ab004d75adade0a",
     "packages": [
         {
             "name": "entomb/slim-json-api",
@@ -51,6 +51,63 @@
                 "view"
             ],
             "time": "2015-01-23 11:55:57"
+        },
+        {
+            "name": "pubnub/pubnub",
+            "version": "v3.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pubnub/php.git",
+                "reference": "693caa6d83c51032a83e27230261ad1755879097"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pubnub/php/zipball/693caa6d83c51032a83e27230261ad1755879097",
+                "reference": "693caa6d83c51032a83e27230261ad1755879097",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "dev-master",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Pubnub\\": "composer/lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Medvedev",
+                    "email": "gektor1@gmail.com"
+                },
+                {
+                    "name": "Victor Kislichenko",
+                    "email": "dofer@bigmir.net"
+                },
+                {
+                    "name": "PubNub Support",
+                    "email": "support@pubnub.com"
+                }
+            ],
+            "description": "The Only Global Network For Real-Time Data -- PubNub!",
+            "homepage": "http://www.pubnub.com/",
+            "keywords": [
+                "ajax",
+                "api",
+                "push",
+                "real time",
+                "real-time",
+                "realtime"
+            ],
+            "time": "2015-03-04 22:00:02"
         },
         {
             "name": "slim/slim",
