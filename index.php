@@ -41,7 +41,7 @@ $app->post('/request', function() use ($app) {
   $message = null;
   $error = getenv('ERROR') == 'true';
   if ($mode == null || $mode == '')
-    $mode = 'sms';
+    $mode = getenv('MODE');
 
   if ($debug) {        
     $message = 'Code requested';
