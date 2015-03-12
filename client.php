@@ -79,6 +79,38 @@
       elseif ($job->method == "broadcast_Text") {
         $this->broadcast_text($job);
       }  
+      elseif ($job->method == "group_create") {
+        $this->create_group($job);
+      }
+      else {
+        l('Job is '.$job->method);
+      }
+    }
+
+    private function create_group($job) {
+      l('Going to create group '.$job->args);
+      l('Will add participants '.$job->targets);
+
+      $group_name = $job->args;
+      $members = explode(',', $job->targets);
+      
+      $groupJid = $this->wa->sendGroupsChatCreate($group_name, $members);
+      l('Group id '.$groupJid);
+
+      $group = Group::find_by_id($job->group_id);
+      $group->jid = $groupJid;
+      $group->active = true;
+      $group->save();
+      
+      $url = getenv('URL').'/groups/'.$group->id.'/activate_members';
+      l('Posting to url '.$url);
+
+      // post_data      
+      $data = array('members' => $job->targets, 'account' => $this->account);
+      post_data($url, $data);
+
+      $job->sent = true;
+      $job->save();
     }
 
     private function broadcast_text($job) {

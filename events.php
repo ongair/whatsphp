@@ -23,8 +23,14 @@
       'onGetGroupImage',
       'onGetVideo',
       'onGetGroupVideo',
-      'onGetLocation'
+      'onGetLocation',
+      'onGroupsChatCreate'
     );
+
+    public function onGroupsChatCreate( $me, $gid ) 
+    {
+      l('Created group : '.$gid);
+    }
 
     public function onGetMessage( $me, $from, $id, $type, $time, $name, $body )
     {
