@@ -35,10 +35,13 @@ $app->post('/request', function() use ($app) {
   $username = $app->request->params('phone_number');
   $nickname = $app->request->params('nickname');
   $carrier = $app->request->params('carrier');
+  $mode = $app->request->params('mode');
   $debug = $app->request->params('debug') == 'true';
   $identity = $username;
   $message = null;
   $error = getenv('ERROR') == 'true';
+  if ($mode == null || $mode == '')
+    $mode = 'sms';
 
   if ($debug) {        
     $message = 'Code requested';
@@ -50,7 +53,7 @@ $app->post('/request', function() use ($app) {
   else {
     try {
       $w = new WhatsProt($username, $identity, $nickname, false);
-      $w->codeRequest('sms', $carrier);
+      $w->codeRequest($mode, $carrier);
       $message = 'Code requested';
     } 
     catch(Exception $ex) {
