@@ -9,6 +9,9 @@
   $password = $argv[2];
   $nickname = $argv[3];
 
+  // l('Dir: '.getenv('CWD'));
+  chdir(getenv('CWD'));
+
   init_log($username);
 
   l('Username: '.$username);
