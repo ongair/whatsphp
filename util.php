@@ -1,10 +1,12 @@
 <?php
 
   date_default_timezone_set('Africa/Nairobi');
+  use Analog\Handler\File;
 
   function l($message)
   {
     echo date("H:i:s")." ".$message."\r\n";
+    Analog::log ($message);
   }
 
   function d($object)
@@ -22,6 +24,12 @@
   {
     $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
     Requests::post($url, $headers, json_encode($data));
+  }
+
+  function init_log($account) {
+    $env = getenv('ENV');
+    $log_file = 'log/'.$account.'.'.$env.'.log';
+    Analog::handler (Analog\Handler\File::init ($log_file));
   }
 
   function _init_db() {

@@ -4,3 +4,4 @@ tmp/*
 .env
 composer.phar
 vendor/
+log/*.log

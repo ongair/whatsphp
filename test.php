@@ -9,6 +9,8 @@
   $password = $argv[2];
   $nickname = $argv[3];
 
+  init_log($username);
+
   l('Username: '.$username);
   l('Password: '.$password);
   l('Nickname: '.$nickname);
