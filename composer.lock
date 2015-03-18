@@ -4,8 +4,57 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c47c27e4ec6f78ca9ab004d75adade0a",
+    "hash": "d2a7adbca17be605ce7378e0a035fd31",
     "packages": [
+        {
+            "name": "analog/analog",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jbroadway/analog.git",
+                "reference": "4adde973c5c8c4242b1d42541488d12a2f3b3bfe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jbroadway/analog/zipball/4adde973c5c8c4242b1d42541488d12a2f3b3bfe",
+                "reference": "4adde973c5c8c4242b1d42541488d12a2f3b3bfe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "psr/log": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Analog": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johnny Broadway",
+                    "email": "johnny@johnnybroadway.com",
+                    "homepage": "http://www.johnnybroadway.com/"
+                }
+            ],
+            "description": "PHP 5.3+ micro logging class that can be extended via closures. Includes several pre-built handlers including file, mail, syslog, HTTP post, and MongoDB.",
+            "homepage": "https://github.com/jbroadway/analog",
+            "keywords": [
+                "alerts",
+                "debug",
+                "debugging",
+                "error",
+                "log",
+                "logger",
+                "logging",
+                "syslog"
+            ],
+            "time": "2015-03-10 22:53:29"
+        },
         {
             "name": "entomb/slim-json-api",
             "version": "dev-master",
@@ -53,17 +102,55 @@
             "time": "2015-01-23 11:55:57"
         },
         {
-            "name": "pubnub/pubnub",
-            "version": "v3.7.3",
+            "name": "psr/log",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pubnub/php.git",
-                "reference": "693caa6d83c51032a83e27230261ad1755879097"
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pubnub/php/zipball/693caa6d83c51032a83e27230261ad1755879097",
-                "reference": "693caa6d83c51032a83e27230261ad1755879097",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Psr\\Log\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "pubnub/pubnub",
+            "version": "v3.7.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pubnub/php.git",
+                "reference": "6f76cb3174872f53e69fc013cdbe385be371dadf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pubnub/php/zipball/6f76cb3174872f53e69fc013cdbe385be371dadf",
+                "reference": "6f76cb3174872f53e69fc013cdbe385be371dadf",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +194,7 @@
                 "real-time",
                 "realtime"
             ],
-            "time": "2015-03-04 22:00:02"
+            "time": "2015-03-13 15:24:45"
         },
         {
             "name": "slim/slim",
@@ -209,7 +296,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "entomb/slim-json-api": 20
+        "entomb/slim-json-api": 20,
+        "analog/analog": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

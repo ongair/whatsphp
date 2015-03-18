@@ -13,4 +13,8 @@
   l('Password: '.$password);
   l('Nickname: '.$nickname);
 
+  sleep(5);
+
+  l('Exiting');
+
   exit(1);
