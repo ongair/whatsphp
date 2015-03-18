@@ -47,9 +47,10 @@
       }      
     }
 
-    public function onGetReceipt( $from, $id, $offline, $retry, $participant )
+    public function onGetReceipt( $from, $id, $offline, $retry )
     {
       l('Got receipt '.$id);
+      l('Got from '.$from);
       
       $job = JobLog::find_by_whatsapp_message_id_and_account_id($id, $this->client->get_account_id());
       l('Method '.$job->method);
@@ -63,7 +64,7 @@
         // pubnub message delivered
       }
       elseif ($job->method == 'broadcast_Text') {        
-        $data = array('account' => $this->client->get_account(), 'receipt' => array('message_id' => $id, 'phone_number' => get_phone_number($participant) ));
+        $data = array('account' => $this->client->get_account(), 'receipt' => array('message_id' => $id, 'phone_number' => get_phone_number($from) ));
         $url = $this->url.'/broadcast_receipt';
 
         $this->post($url, $data);
