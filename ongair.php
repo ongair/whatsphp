@@ -21,7 +21,7 @@
 
   $wait = intval(getenv('WAIT_TIMEOUT'));
   l('Going to wait for '.$wait);
-  
+
   sleep($wait);
 
-  exit(1);
+  exit(2);

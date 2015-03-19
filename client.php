@@ -65,6 +65,7 @@
         }
         catch(ConnectionException $e) {
           l('Error occurred when trying to connect '.$e->getMessage());
+          exit(0);
         }        
       }      
     }
