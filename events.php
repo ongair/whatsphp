@@ -24,12 +24,22 @@
       'onGetVideo',
       'onGetGroupVideo',
       'onGetLocation',
-      'onGroupsChatCreate'
+      'onGroupsChatCreate',
+      'onGroupsParticipantsAdd'
     );
 
     public function onGroupsChatCreate( $me, $gid ) 
     {
       l('Created group : '.$gid);
+    }
+
+    public function onGroupsParticipantsAdd($me, $groupId, $jid) 
+    {
+      l('Added participant '.$jid);
+      l('To group '.$groupId);
+
+      $data = array('account' => $me, 'groupJid' => $groupJid, 'phone_number' => get_phone_number($jid));
+      $this->post($this->url.'/update_membership', $data);
     }
 
     public function onGetMessage( $me, $from, $id, $type, $time, $name, $body )
@@ -47,19 +57,26 @@
       }      
     }
 
-    public function onGetReceipt( $from, $id, $offline, $retry, $participant )
+    public function onGetReceipt( $from, $id, $offline, $retry, $participant, $type )
     {
       l('Got receipt '.$id);
       l('Got from '.$from);
+      l('Type: '.$type);
       
       $job = JobLog::find_by_whatsapp_message_id_and_account_id($id, $this->client->get_account_id());
       l('Method '.$job->method);
       if ($job->method == "sendMessage") {        
-        
+
         $message = Message::find_by_id($job->message_id);
         $message->received = true;
         $message->receipt_timestamp = date('Y-m-d H:i:s');
         $message->save();
+
+        if ($type == 'read')
+        {
+          $data = array('account' => $this->client->get_account(), 'receipt' => array( 'type' => 'read', 'message_id' => $message->id ));
+          $this->post($this->url.'/receipt', $data);
+        }
 
         // pubnub message delivered
       }
