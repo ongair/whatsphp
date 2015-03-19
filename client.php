@@ -98,7 +98,7 @@
         $this->create_group($job);
       }
       elseif ($job->method == "group_addParticipants") {
-        // $this->add_participants_to_group($job);
+        $this->add_participants_to_group($job);
       }
       else {
         l('Job is '.$job->method);
@@ -109,9 +109,11 @@
      * Called to add participants to an existing group
      */
     private function add_participants_to_group($job) {
-      $members = explode(',', $job->targets);
+      $members = explode(',', $job->args);
       
-      $this->wa->sendGroupsParticipantsAdd($job->args, $targets);
+      $this->wa->sendGroupsParticipantsAdd($job->targets, $members);    
+      $job->sent = true;
+      $job->save();
     }
 
     private function create_group($job) {
