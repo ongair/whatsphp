@@ -1,8 +1,7 @@
 <?php
 
   require_once('lib/whatsapp/whatsprot.class.php');
-  require_once('lib/activerecord/ActiveRecord.php');
-  require_once('lib/requests/Requests.php');  
+  require_once('lib/activerecord/ActiveRecord.php');  
   require_once('client.php');
   require_once('util.php');  
   require 'vendor/autoload.php';

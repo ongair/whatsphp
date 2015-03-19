@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d2a7adbca17be605ce7378e0a035fd31",
+    "hash": "05ca51be845bbefd85c7db66fc0cef56",
     "packages": [
         {
             "name": "analog/analog",
@@ -141,16 +141,16 @@
         },
         {
             "name": "pubnub/pubnub",
-            "version": "v3.7.4",
+            "version": "v3.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pubnub/php.git",
-                "reference": "6f76cb3174872f53e69fc013cdbe385be371dadf"
+                "reference": "8666c28cb6d685801602e50942c7f0313a4b85b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pubnub/php/zipball/6f76cb3174872f53e69fc013cdbe385be371dadf",
-                "reference": "6f76cb3174872f53e69fc013cdbe385be371dadf",
+                "url": "https://api.github.com/repos/pubnub/php/zipball/8666c28cb6d685801602e50942c7f0313a4b85b6",
+                "reference": "8666c28cb6d685801602e50942c7f0313a4b85b6",
                 "shasum": ""
             },
             "require": {
@@ -194,7 +194,56 @@
                 "real-time",
                 "realtime"
             ],
-            "time": "2015-03-13 15:24:45"
+            "time": "2015-03-18 21:01:52"
+        },
+        {
+            "name": "rmccue/requests",
+            "version": "v1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rmccue/Requests.git",
+                "reference": "6aac485666c2955077d77b796bbdd25f0013a4ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rmccue/Requests/zipball/6aac485666c2955077d77b796bbdd25f0013a4ea",
+                "reference": "6aac485666c2955077d77b796bbdd25f0013a4ea",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Requests": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Ryan McCue",
+                    "homepage": "http://ryanmccue.info"
+                }
+            ],
+            "description": "A HTTP library written in PHP, for human beings.",
+            "homepage": "http://github.com/rmccue/Requests",
+            "keywords": [
+                "curl",
+                "fsockopen",
+                "http",
+                "idna",
+                "ipv6",
+                "iri",
+                "sockets"
+            ],
+            "time": "2014-05-18 04:59:02"
         },
         {
             "name": "slim/slim",

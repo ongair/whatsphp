@@ -1,7 +1,6 @@
 <?php
 
 require 'vendor/autoload.php';
-// require_once('lib/phpdotenv/Dotenv.php');
 require_once('lib/whatsapp/whatsprot.class.php');
 require_once('lib/activerecord/ActiveRecord.php');
 require_once('models/Account.php');
