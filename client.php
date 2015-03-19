@@ -21,8 +21,14 @@
       $this->identity = "";
       $debug = (bool) getenv('DEBUG');
 
+      chdir(getenv('CWD'));
+
+      init_log($account);
+
       $this->_init_db();
       $this->account_id = $this->get_account_id();          
+
+      l('Logging in');
 
       if ($this->is_active()) {
         $this->wa = new WhatsProt($this->account, $this->identity, $this->nickname, $debug);
@@ -33,26 +39,33 @@
 
     public function loop() {
       if (!$this->connected) {
-        $this->wa->connect();
-        $this->wa->loginWithPassword($this->password);          
-
-        $start = microtime(true);
-        $secs = 0;
-        $timeout = intval(getenv('TIMEOUT'));
         
-        while($secs < $timeout) {
+        try
+        {
+          $this->wa->connect();
+          $this->wa->loginWithPassword($this->password);          
+
+          $start = microtime(true);
+          $secs = 0;
+          $timeout = intval(getenv('TIMEOUT'));
           
-          $this->wa->pollMessage(true);
-          $this->get_jobs();
+          while($secs < $timeout) {
+            
+            $this->wa->pollMessage(true);
+            $this->get_jobs();
 
-          $mid = microtime(true);
-          $secs = intval($mid - $start);
-          l('Disconnect in: '.($timeout - $secs));
+            $mid = microtime(true);
+            $secs = intval($mid - $start);
+            l('Disconnect in: '.($timeout - $secs));
+          }
+
+          $end = microtime(true);
+          $timediff = intval($end - $start);
+          $this->wa->disconnect();  
         }
-
-        $end = microtime(true);
-        $timediff = intval($end - $start);
-        $this->wa->disconnect();
+        catch(ConnectionException $e) {
+          l('Error occurred when trying to connect '.$e->getMessage());
+        }        
       }      
     }
 
@@ -171,6 +184,8 @@
         return true;  
       } catch (Exception $e) {
         l('Caught exception: '.$e->getMessage());
+        l('Exiting normally so we dont restart');
+        exit(0);
       }
       return false;
     }

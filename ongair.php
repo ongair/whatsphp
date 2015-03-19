@@ -17,3 +17,5 @@
   $client = new Client($username, $password, $nickname);
   $client->loop();
 
+  l('Finished normally...');
+  exit(1);
