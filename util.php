@@ -20,6 +20,10 @@
     return $split[0];
   }
 
+  function is_production() {
+    return getenv('ENV') == 'production';
+  }
+
   function post_data($url, $data)
   {
     $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
