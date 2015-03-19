@@ -106,5 +106,5 @@
     $headers = array('content-type' => 'text/xml;charset=utf8');
     $response = Requests::post($url, $headers, $xml);
 
-    return $response->success
+    return $response->success;
   }
