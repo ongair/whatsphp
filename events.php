@@ -65,7 +65,7 @@
       
       $job = JobLog::find_by_whatsapp_message_id_and_account_id($id, $this->client->get_account_id());
       l('Method '.$job->method);
-      if ($job->method == "sendMessage") {        
+      if ($job->method == "sendMessage" || $job->method == 'sendImage') {        
 
         $message = Message::find_by_id($job->message_id);
         $message->received = true;

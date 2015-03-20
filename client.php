@@ -159,19 +159,21 @@
       
       $args = explode(',', $job->args);
       $asset_id = $args[0];
-      $asset_url = getenv('URL').$args[1];
-
-      l('Url: '.$asset_url);
-
 
       $asset = Asset::find_by_id($asset_id);
-      $file_name = 'tmp/'.$asset->file_file_name;
+      $file_name = 'tmp/'.$asset->id.'_'.$asset->file_file_name;
+
+      $asset_url = getenv('URL').$asset->url;
+      l('Url: '.$asset_url);
+
+      $message = Message::find_by_id($job->message_id);
+      $caption = $message->text;
 
       l('File name: '.$file_name);
 
-      if ($this->download($asset_url, $file_name)) {
+      if ($this->download($asset_url, $file_name)) {        
+        $job->whatsapp_message_id = $this->wa->sendMessageImage($job->targets, $file_name, false, 0, "", $caption);
         
-        $job->whatsapp_message_id = $this->wa->sendMessageImage($job->targets, $file_name);
         $job->sent = true;
         $job->save();
 
