@@ -100,9 +100,26 @@
       elseif ($job->method == "group_addParticipants") {
         $this->add_participants_to_group($job);
       }
+      elseif ($job->method == "group_removeParticipants") {
+        $this->remove_participants_from_group($job);
+      } 
       else {
         l('Job is '.$job->method);
       }
+    }
+
+    /**
+     * Called to remove a participant from a group
+     */
+    private function remove_participants_from_group($job) {
+      l('Going to remove '.$job->args);
+      l('From group '.$job->targets);
+
+      $members = explode(',', $job->args);
+
+      $this->wa->sendGroupsParticipantsRemove($job->targets, $members);
+      $job->sent = true
+      $job->save();
     }
 
     /**
