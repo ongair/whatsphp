@@ -13,7 +13,7 @@
     private $wa;
     private $connected;
 
-    function __construct($account, $password, $nickname) {
+    function __construct($account, $password="", $nickname="") {
       $this->account = $account;
       $this->password = $password;
       $this->nickname = $nickname;
@@ -28,7 +28,11 @@
       $this->_init_db();
       $this->account_id = $this->get_account_id();          
 
-      l('Logging in');
+      if ($password == "" || $nickname == "") {
+        $acc = $this->get_full_account();
+        $this->password = $acc->whatsapp_password;
+        $this->nickname = $acc->name;
+      }
 
       if ($this->is_active()) {
         $this->wa = new WhatsProt($this->account, $this->identity, $this->nickname, $debug);
@@ -93,7 +97,10 @@
       }     
       elseif ($job->method == "broadcast_Text") {
         $this->broadcast_text($job);
-      }  
+      } 
+      elseif ($job->method == "broadcast_Image") {
+        $this->broadcast_image ($job);
+      } 
       elseif ($job->method == "group_create") {
         $this->create_group($job);
       }
@@ -102,7 +109,7 @@
       }
       elseif ($job->method == "group_removeParticipants") {
         $this->remove_participants_from_group($job);
-      } 
+      }       
       else {
         l('Job is '.$job->method);
       }
@@ -118,7 +125,7 @@
       $members = explode(',', $job->args);
 
       $this->wa->sendGroupsParticipantsRemove($job->targets, $members);
-      $job->sent = true
+      $job->sent = true;
       $job->save();
     }
 
@@ -159,6 +166,21 @@
       $job->save();
     }
 
+    private function broadcast_image($job) {
+      $asset = Asset::find_by_id($job->asset_id);
+      $file_name = 'tmp/'.$asset->id.'_'.$asset->file_file_name;
+
+      $url = getenv('URL').$asset->url;
+      $broadcast = Broadcast::find_by_id($job->args);
+
+      if ($this->download($url, $file_name)) {
+        $targets = explode(',', $job->targets);
+        $job->whatsapp_message_id = $this->wa->sendBroadcastImage($targets, $file_name, false, 0, "", $broadcast->message);
+        $job->sent = true;
+        $job->save();
+      }
+    }
+
     private function broadcast_text($job) {
       $job->whatsapp_message_id = $this->wa->sendBroadcastMessage(explode(',',$job->targets), $job->args);
       $job->sent = true;
@@ -181,7 +203,6 @@
       $file_name = 'tmp/'.$asset->id.'_'.$asset->file_file_name;
 
       $asset_url = getenv('URL').$asset->url;
-      l('Url: '.$asset_url);
 
       $message = Message::find_by_id($job->message_id);
       $caption = $message->text;
@@ -210,6 +231,10 @@
         exit(0);
       }
       return false;
+    }
+
+    private function get_full_account() {
+      return Account::find_by_phone_number($this->account);
     }
 
     public function get_account_id() {

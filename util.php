@@ -14,10 +14,14 @@
     var_dump($object);
   }
 
-  function get_phone_number($jid)
-  {
+  function split_jid($jid) {
     $split = explode("@", $jid);
     return $split[0];
+  }
+
+  function get_phone_number($jid)
+  {
+    return split_jid($jid);
   }
 
   function is_production() {

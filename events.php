@@ -25,7 +25,8 @@
       'onGetGroupVideo',
       'onGetLocation',
       'onGroupsChatCreate',
-      'onGroupsParticipantsAdd'
+      'onGroupsParticipantsAdd',
+      'onGroupsParticipantsRemove'
     );
 
     public function onGroupsChatCreate( $me, $gid ) 
@@ -38,7 +39,14 @@
       l('Added participant '.$jid);
       l('To group '.$groupId);
 
-      $data = array('account' => $me, 'groupJid' => $groupJid, 'phone_number' => get_phone_number($jid));
+      $data = array('account' => $me, 'groupJid' => split_jid($groupId), 'contact' => get_phone_number($jid), 'type' => 'add');
+      $this->post($this->url.'/update_membership', $data);
+    }
+
+    public function onGroupsParticipantsRemove($me, $groupId, $jid)
+    {
+      l('Removed '.$jid.' from '.$groupId);
+      $data = array('account' => $me, 'groupJid' => split_jid($groupId), 'contact' => get_phone_number($jid), 'type' => 'left');
       $this->post($this->url.'/update_membership', $data);
     }
 
@@ -80,7 +88,7 @@
 
         // pubnub message delivered
       }
-      elseif ($job->method == 'broadcast_Text') {        
+      elseif ($job->method == 'broadcast_Text' || $job->method == 'broadcast_Image') {        
         $data = array('account' => $this->client->get_account(), 'receipt' => array('message_id' => $id, 'phone_number' => get_phone_number($participant) ));
         $url = $this->url.'/broadcast_receipt';
 
