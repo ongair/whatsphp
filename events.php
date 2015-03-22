@@ -26,8 +26,20 @@
       'onGetLocation',
       'onGroupsChatCreate',
       'onGroupsParticipantsAdd',
-      'onGroupsParticipantsRemove'
+      'onGroupsParticipantsRemove',
+      'onGroupisCreated'
     );
+
+    public function onGroupisCreated( $me, $creator, $gid, $subject, $admin, $creation, $members = array()){
+      l('Group created '.$subject.' id '.$gid);
+      l('Members '.$members);
+
+      $exists = Group::exists(array('jid' => $gid));
+      if (!$exists) {
+        $data = array('account' => $me, 'name' => $subject, 'jid' => $gid, 'group_type' => 'External', 'members' => $members);
+        $this->post($this->url.'/groups', $data);  
+      }
+    }
 
     public function onGroupsChatCreate( $me, $gid ) 
     {
