@@ -39,14 +39,14 @@
       l('Added participant '.$jid);
       l('To group '.$groupId);
 
-      $data = array('account' => $me, 'groupJid' => split_jid($groupId), 'contact' => get_phone_number($jid), 'type' => 'add');
+      $data = array('account' => $me, 'groupJid' => $groupId, 'contact' => get_phone_number($jid), 'type' => 'add');
       $this->post($this->url.'/update_membership', $data);
     }
 
     public function onGroupsParticipantsRemove($me, $groupId, $jid)
     {
       l('Removed '.$jid.' from '.$groupId);
-      $data = array('account' => $me, 'groupJid' => split_jid($groupId), 'contact' => get_phone_number($jid), 'type' => 'left');
+      $data = array('account' => $me, 'groupJid' => $groupId, 'contact' => get_phone_number($jid), 'type' => 'left');
       $this->post($this->url.'/update_membership', $data);
     }
 
