@@ -51,7 +51,7 @@ $app->post('/request', function() use ($app) {
   }
   else {
     try {
-      $w = new WhatsProt($username, $identity, $nickname, false);
+      $w = new WhatsProt($username, $nickname, false);
       $w->codeRequest($mode, $carrier);
       $message = 'Code requested';
     } 

@@ -19,7 +19,7 @@
       $this->nickname = $nickname;
       $this->connected = false;
       $this->identity = "";
-      $debug = (bool) getenv('DEBUG');
+      $debug = getenv('DEBUG') == 'true';
 
       chdir(getenv('CWD'));
 
@@ -35,7 +35,7 @@
       }
 
       if ($this->is_active()) {
-        $this->wa = new WhatsProt($this->account, $this->identity, $this->nickname, $debug);
+        $this->wa = new WhatsProt($this->account, $this->nickname, $debug);
         $events = new Events($this, $this->wa);
         $events->setEventsToListenFor($events->activeEvents);        
       }       
