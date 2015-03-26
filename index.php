@@ -39,6 +39,8 @@ $app->post('/request', function() use ($app) {
   $identity = $username;
   $message = null;
   $error = getenv('ERROR') == 'true';
+  $retry_after = 1805;
+
   if ($mode == null || $mode == '')
     $mode = getenv('MODE');
 
@@ -52,8 +54,9 @@ $app->post('/request', function() use ($app) {
   else {
     try {
       $w = new WhatsProt($username, $nickname, false);
-      $w->codeRequest($mode, $carrier);
+      $response = $w->codeRequest($mode, $carrier);
       $message = 'Code requested';
+      $retry_after = $response->retry_after;
     } 
     catch(Exception $ex) {
       $message = $ex->getMessage();
@@ -63,7 +66,8 @@ $app->post('/request', function() use ($app) {
 
   $app->render(200, array(
     'error' => $error,
-    'message' => $message
+    'message' => $message,
+    'retry_after' => $retry_after
   ));
 
 });
