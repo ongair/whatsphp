@@ -89,7 +89,7 @@ $app->post('/register', function() use ($app) {
   }
   else {
 
-    $w = new WhatsProt($username, $identity, $nickname, false);
+    $w = new WhatsProt($username, $nickname, false);
     try {
       $result = $w->codeRegister($code);
       $message = 'Activated';
