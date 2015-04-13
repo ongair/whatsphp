@@ -13,26 +13,22 @@
     private $wa;
     private $connected;
 
-    function __construct($account, $password="", $nickname="") {
+    function __construct($account, $db_key = 'DB', $url_key = 'URL') {
       $this->account = $account;
-      $this->password = $password;
-      $this->nickname = $nickname;
       $this->connected = false;
-      $this->identity = "";
       $debug = getenv('DEBUG') == 'true';
 
       chdir(getenv('CWD'));
 
       init_log($account);
-
-      $this->_init_db();
+      
+      $this->url = getenv($url_key);
+      $this->_init_db($db_key);
       $this->account_id = $this->get_account_id();          
 
-      if ($password == "" || $nickname == "") {
-        $acc = $this->get_full_account();
-        $this->password = $acc->whatsapp_password;
-        $this->nickname = $acc->name;
-      }
+      $acc = $this->get_full_account();
+      $this->password = $acc->whatsapp_password;
+      $this->nickname = $acc->name;
 
       if ($this->is_active()) {
         $this->wa = new WhatsProt($this->account, $this->nickname, $debug);
@@ -155,7 +151,7 @@
       $group->active = true;
       $group->save();
       
-      $url = getenv('URL').'/groups/'.$group->id.'/activate_members';
+      $url = $this->url.'/groups/'.$group->id.'/activate_members';
       l('Posting to url '.$url);
 
       // post_data      
@@ -170,7 +166,7 @@
       $asset = Asset::find_by_id($job->asset_id);
       $file_name = 'tmp/'.$asset->id.'_'.$asset->file_file_name;
 
-      $url = getenv('URL').$asset->url;
+      $url = $this->url.$asset->url;
       $broadcast = Broadcast::find_by_id($job->args);
 
       if ($this->download($url, $file_name)) {
@@ -202,7 +198,7 @@
       $asset = Asset::find_by_id($asset_id);
       $file_name = 'tmp/'.$asset->id.'_'.$asset->file_file_name;
 
-      $asset_url = getenv('URL').$asset->url;
+      $asset_url = $this->url.$asset->url;
 
       $message = Message::find_by_id($job->message_id);
       $caption = $message->text;
@@ -249,9 +245,9 @@
       return Account::exists(array('phone_number' => $this->account, 'setup' => true));
     }
 
-    private function _init_db() {
+    private function _init_db($key = 'DB') {
       $env = getenv('ENV');
-      $db = getenv('DB');
+      $db = getenv($key);
 
       $cfg = ActiveRecord\Config::instance();      
       $cfg->set_default_connection($env);

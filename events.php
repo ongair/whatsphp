@@ -7,10 +7,10 @@
     public $acount;
     private $client;
 
-    public function __construct($client, $wa) {
+    public function __construct($client, $wa, $url_key = 'URL') {
       parent::__construct($wa);
       $this->client = $client;
-      $this->url = getenv('URL');
+      $this->url = getenv($url_key);
     }
 
     public $activeEvents = array(

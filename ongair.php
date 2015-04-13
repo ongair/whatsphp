@@ -10,11 +10,10 @@
   Dotenv::load(__DIR__);
 
   $username = $argv[1];
-  $password = $argv[2];
-  $nickname = $argv[3];
+  $db_key = empty($argv[2])? "DB" : $argv[2];
+  $url_key = empty($argv[3])? "URL" : $argv[3];
 
-
-  $client = new Client($username, $password, $nickname);
+  $client = new Client($username, $db_key, $url_key);
   $client->loop();
 
   l('Finished normally...');
