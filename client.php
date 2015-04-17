@@ -32,7 +32,7 @@
 
       if ($this->is_active()) {
         $this->wa = new WhatsProt($this->account, $this->nickname, $debug);
-        $events = new Events($this, $this->wa);
+        $events = new Events($this, $this->wa, $url_key);
         $events->setEventsToListenFor($events->activeEvents);        
       }       
     }
