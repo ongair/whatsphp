@@ -109,8 +109,27 @@
       elseif ($job->method == "profile_setStatus") {
         $this->set_status($job);
       }
+      elseif ($job->method == "setProfilePicture") {
+        $this->set_profile_picture($job);
+      }
       else {
         l('Job is '.$job->method);
+      }
+    }
+
+    /**
+     * Set the profile picture
+     */
+    private function set_profile_picture($job) {
+      $url = $this->url.$job->args;
+      l('About to set profile picture to '.$url);
+
+      $file_name = 'tmp/pp_'.$job->id.'_.jpg'; 
+
+      if ($this->download($url, $file_name)) {
+        $this->wa->sendSetProfilePicture($file_name);
+        $job->sent = true;
+        $job->save();
       }
     }
 
