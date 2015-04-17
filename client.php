@@ -61,9 +61,12 @@
 
           $end = microtime(true);
           $timediff = intval($end - $start);
-          $this->wa->disconnect();  
+          $this->wa->disconnect();            
         }
-        catch(ConnectionException $e) {
+        catch(ConnectionException $e) {          
+          if (is_production()) {
+            send_sms(getenv('ADMIN_TEL'), $this->account.' ('.$this->nickname.') has gone offline unexpectedly.');
+          }
           l('Error occurred when trying to connect '.$e->getMessage());
           exit(0);
         }        
