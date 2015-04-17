@@ -149,7 +149,7 @@
     public function onGetGroupVideo( $me, $from_group_jid, $from_user_jid, $id, $type, $time, $name, $url, $file, $size, $mimeType, $fileHash, $duration, $vcodec, $acodec, $preview, $caption )
     {
       $post_url = $this->url.'/upload';
-      $data = array('account' => $me, 'message' => array('url' => $video_url, 'message_type' => 'Video', 'group_jid' => $from_group_jid, 'phone_number' => get_phone_number($from_user_jid), 'whatsapp_message_id' => $id, 'name' => $name ));
+      $data = array('account' => $me, 'message' => array('url' => $url, 'message_type' => 'Video', 'group_jid' => $from_group_jid, 'phone_number' => get_phone_number($from_user_jid), 'whatsapp_message_id' => $id, 'name' => $name ));
       $this->post($post_url, $data);
     }
 
