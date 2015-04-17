@@ -106,9 +106,23 @@
       elseif ($job->method == "group_removeParticipants") {
         $this->remove_participants_from_group($job);
       }       
+      elseif ($job->method == "profile_setStatus") {
+        $this->set_status($job);
+      }
       else {
         l('Job is '.$job->method);
       }
+    }
+
+    /**
+     * Set the profile status
+     */
+    private function set_status($job) {
+      l('Going to set status '.$job->args);
+
+      $this->wa->sendStatusUpdate($job->args);
+      $job->sent = true;
+      $job->save();
     }
 
     /**
