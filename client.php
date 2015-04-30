@@ -56,6 +56,11 @@
 
             $mid = microtime(true);
             $secs = intval($mid - $start);
+
+            $diff = $timeout - $secs;
+            if ($diff > 5) {
+              sleep(1);
+            }
             // l('Disconnect in: '.($timeout - $secs));
           }
 
