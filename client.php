@@ -56,12 +56,14 @@
 
             $mid = microtime(true);
             $secs = intval($mid - $start);
-            l('Disconnect in: '.($timeout - $secs));
+            // l('Disconnect in: '.($timeout - $secs));
           }
 
           $end = microtime(true);
           $timediff = intval($end - $start);
-          $this->wa->disconnect();            
+          l('About to disconnect');
+          $this->wa->disconnect(); 
+          l('Disconnected');           
         }
         catch(ConnectionException $e) {          
           if (is_production()) {
