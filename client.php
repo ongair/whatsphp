@@ -58,8 +58,8 @@
             $secs = intval($mid - $start);
 
             $diff = $timeout - $secs;
-            if ($diff > 10) {
-              sleep(10);
+            if ($diff > 5) {
+              sleep(3);
             }
             // l('Disconnect in: '.($timeout - $secs));
           }
