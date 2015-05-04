@@ -13,6 +13,9 @@
   $db_key = empty($argv[2])? "DB" : $argv[2];
   $url_key = empty($argv[3])? "URL" : $argv[3];
 
+  $config = array( 'access_token' => getenv('ENV'), 'access_token' => getenv('ROLLBAR'), 'root' => getenv('CWD') );
+  Rollbar::init($config, false, false);
+
   $client = new Client($username, $db_key, $url_key);
   $client->loop();
 
