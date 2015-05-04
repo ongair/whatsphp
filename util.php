@@ -55,6 +55,17 @@
     );
   }
 
+  function is_running($response) {
+    return !is_stopped($response);
+  }
+
+  function is_stopped($response) {  
+    $pattern = "start/running";
+    $pos = strpos($response, $pattern);
+
+    return ($pos === false);
+  }
+
   function send_sms($to, $message) {
     $url = getenv('SMS_GATEWAY_URL');
     $channel_id = getenv('SMS_GATEWAY_CHANNEL_ID');
