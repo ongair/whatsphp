@@ -79,12 +79,10 @@
 
     public function onGetReceipt( $from, $id, $offline, $retry, $participant, $type )
     {
-      l('Got receipt '.$id);
-      l('Got from '.$from);
-      l('Type: '.$type);
+      l('Got '.$type.' receipt '.$id.' from '.$from);      
       
       $job = JobLog::find_by_whatsapp_message_id_and_account_id($id, $this->client->get_account_id());
-      l('Method '.$job->method);
+      // l('Method '.$job->method);
       if ($job->method == "sendMessage" || $job->method == 'sendImage') {        
 
         $message = Message::find_by_id($job->message_id);
