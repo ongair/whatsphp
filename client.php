@@ -71,13 +71,27 @@
           l('Disconnected');           
         }
         catch(ConnectionException $e) {          
-          if (is_production()) {
-            send_sms(getenv('ADMIN_TEL'), $this->account.' ('.$this->nickname.') has gone offline unexpectedly.');
+          
+          $msg = $e->getMessage();
+          Rollbar::report_message($this->account." Disconnected.", 'warning');
+          l('Error occurred when trying to connect '.$msg);
+                    
+          if ($msg != "Connection Closed!")  
+          {
+            if (is_production()) {
+              send_sms(getenv('ADMIN_TEL'), $this->account.' ('.$this->nickname.') has gone offline unexpectedly.');
+            }
+            // Any other error don't restart automatically
+            exit(0);
           }
-          l('Error occurred when trying to connect '.$e->getMessage());
-          // Error occurred when trying to connect Connection Closed!
-          // if connection closed, we should restart automatically
-          exit(0);
+          else {
+            // if connection closed, we should restart automatically
+            $wait = intval(getenv('WAIT_TIMEOUT'));
+            l('Going to wait for '.$wait);
+            sleep($wait);
+
+            exit(1);
+          }
         }        
       }      
     }
