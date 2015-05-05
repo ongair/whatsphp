@@ -8,7 +8,7 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 ```
 
-This needs mod_rewrite enabled
+This needs mod_rewrite enabled if running the web engine
 
 ```sudo a2enmod rewrite```
 

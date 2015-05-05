@@ -102,12 +102,15 @@
 
     private function get_jobs() {
       $jobs = JobLog::all(array('sent' => false, 'account_id' => $this->account_id, 'pending' => false));
-      l("Num jobs ".count($jobs));
+      
+      if (count($jobs) > 0) {
+        l("Num jobs ".count($jobs));
 
-      foreach ($jobs as $job) {        
-        $this->do_job($job);
-        l($job->method);
-      }
+        foreach ($jobs as $job) {        
+          $this->do_job($job);
+          l($job->method);
+        }  
+      }      
     }
 
     private function do_job($job) {

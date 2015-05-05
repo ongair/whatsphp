@@ -20,10 +20,17 @@ Setup
   ```
     git clone https://github.com/sproutke/whatsphp.git whatsapp
     cd whatsapp
+    mkdir tmp
     git config core.fileMode false
   ```
 
 4. Change the permissions for this folder as well
   ```
     chmod -R 777 whatsapp
+    sudo chown -R root:www-data whatsapp
+  ```
+
+5. Install php-mysql
+  ```
+    sudo apt-get install php5-mysql
   ```
