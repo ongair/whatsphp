@@ -51,7 +51,7 @@
           
           while($secs < $timeout) {
             
-            $this->wa->pollMessage(true);
+            $this->wa->pollMessage(true, "delivered");
             $this->get_jobs();
 
             $mid = microtime(true);
