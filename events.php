@@ -1,6 +1,7 @@
 <?php
   require 'lib/whatsapp/events/AllEvents.php';
   require 'models/Message.php';  
+  use Pubnub\Pubnub;
 
   class Events extends AllEvents
   {
@@ -11,6 +12,15 @@
       parent::__construct($wa);
       $this->client = $client;
       $this->url = getenv($url_key);
+
+      $this->pubnub = new Pubnub(
+          getenv('PUB_KEY'),
+          getenv('SUB_KEY'),
+          "",
+          false
+        );
+
+      $this->channel = getenv('PUB_CHANNEL')."_".$this->client->get_account();      
     }
 
     public $activeEvents = array(
@@ -74,6 +84,9 @@
         $data = array('account' => $me, 'message' => array( 'text' => $body, 'phone_number' => get_phone_number($from), 'message_type' => 'Text', 'whatsapp_message_id' => $id, 'name' => $name) );
         
         $this->post($url, $data);
+
+        $notif = array('type' => 'text', 'phone_number' => get_phone_number($from), 'text' => $body, 'name' => $name);
+        $this->send_realtime($notif);
       }      
     }
 
@@ -180,5 +193,9 @@
 
     private function exists($id) {      
       return Message::exists(array('whatsapp_message_id' => $id));
+    }
+
+    private function send_realtime($message) {
+      $info = $this->pubnub->publish($this->channel, $message);
     }
   }
