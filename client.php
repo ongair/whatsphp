@@ -73,7 +73,7 @@
         catch(ConnectionException $e) {          
           
           $msg = $e->getMessage();
-          Rollbar::report_message($this->account." Disconnected.", 'warning');
+          // Rollbar::report_message($this->account." Disconnected.", 'warning');
           l('Error occurred when trying to connect '.$msg);
                     
           if ($msg != "Connection Closed!")  
