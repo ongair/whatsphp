@@ -45,7 +45,13 @@
       l('Members '.$members);
 
       $exists = Group::exists(array('jid' => $gid));
-      if (!$exists) {
+      $internal = $this->is_internal_group($gid);
+
+      l('Exists: '.$exists.' - Internal: '.$internal);
+
+      // if it does not exist and is not internal
+      // otherwise we'll have double posting
+      if (!$exists && !$internal) {
         $data = array('account' => $me, 'name' => $subject, 'jid' => $gid, 'group_type' => 'External', 'members' => $members);
         $this->post($this->url.'/groups', $data);  
       }
@@ -197,5 +203,10 @@
 
     private function send_realtime($message) {
       $info = $this->pubnub->publish($this->channel, $message);
+    }
+
+    private function is_internal_group($jid) {
+      $me = $this->client->get_account();
+      return (strpos($jid,$me) !== false);
     }
   }
