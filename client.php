@@ -1,5 +1,6 @@
 <?php
 
+  require_once('lib/whatsapp/vCard.php');
   require_once('models/Account.php');  
   require_once('models/Asset.php');  
   require_once('models/JobLog.php');
@@ -141,9 +142,36 @@
       elseif ($job->method == "setProfilePicture") {
         $this->set_profile_picture($job);
       }
+      elseif ($job->method == "sendContact") {
+        $this->send_contact($job);
+      }
       else {
         l('Job is '.$job->method);
       }
+    }
+
+    /**
+     * Send vCard
+     */
+    private function send_contact($job) {      
+      $to = $job->targets;
+      $args = explode(",", $job->args);
+
+      $first_name = $args[0];
+      $last_name = $args[1];
+      $tel = $args[2];
+      $name = $first_name." ".$last_name;
+
+      $card = new vCard();
+      $card->set('data', array(
+        'first_name' => $first_name,
+        'last_name' => $last_name,
+        'cell_tel' => $tel
+      ));
+
+      $job->whatsapp_message_id = $this->wa->sendVCard($to, $name, $card->show());
+      $job->sent = true;
+      $job->save();
     }
 
     /**
