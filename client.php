@@ -130,6 +130,9 @@
       elseif ($job->method == "group_create") {
         $this->create_group($job);
       }
+      elseif ($job->method == "group_end") {
+        $this->end_group($job);
+      }
       elseif ($job->method == "group_addParticipants") {
         $this->add_participants_to_group($job);
       }
@@ -148,6 +151,15 @@
       else {
         l('Job is '.$job->method);
       }
+    }
+
+    /**
+     * End the group
+     */
+    private function end_group($job) {
+      $this->wa->sendGroupsLeave(array($job->args));
+      $job->sent = true;
+      $job->save();
     }
 
     /**
