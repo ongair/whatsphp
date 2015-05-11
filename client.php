@@ -148,10 +148,14 @@
       elseif ($job->method == "sendContact") {
         $this->send_contact($job);
       }
+      elseif ($job->method == "sendVideo") {
+        $this->send_video($job);
+      }
       else {
         l('Job is '.$job->method);
       }
     }
+
 
     /**
      * End the group
@@ -317,6 +321,34 @@
         $job->save();
 
       }
+    }
+
+    private function send_video($job) {
+      l('In send video');
+      // $asset_id = $job->args;
+      $asset = Asset::find_by_id($job->asset_id); 
+
+      $file_name = 'tmp/'.$asset->id.'_'.$this->get_video_file_name($asset);
+
+      $asset_url = $asset->url;
+      if (!startsWith($asset->url, "http")) {
+        $asset_url = $this->url.$asset->url;   
+      }
+
+      $message = Message::find_by_id($job->message_id);
+      $caption = $message->text;
+
+      l('File name: '.$file_name);
+
+      if($this->download($asset_url, $file_name)) {
+        $job->whatsapp_message_id = $this->wa->sendMessageVideo($job->targets, $file_name, false, 0, "", $caption);
+        $job->sent = true;
+        $job->save();
+      }
+    }
+
+    private function get_video_file_name($asset) {
+      return $asset->name;
     }
 
     private function get_image_file_name($asset) {
