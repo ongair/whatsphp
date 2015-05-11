@@ -298,9 +298,12 @@
       $asset_id = $args[0];
 
       $asset = Asset::find_by_id($asset_id);
-      $file_name = 'tmp/'.$asset->id.'_'.$asset->file_file_name;
+      $file_name = 'tmp/'.$asset->id.'_'.$this->get_image_file_name($asset);
 
-      $asset_url = $this->url.$asset->url;
+      $asset_url = $asset->url;
+      if (!startsWith($asset->url, "http")) {
+        $asset_url = $this->url.$asset->url;   
+      } 
 
       $message = Message::find_by_id($job->message_id);
       $caption = $message->text;
@@ -314,6 +317,18 @@
         $job->save();
 
       }
+    }
+
+    private function get_image_file_name($asset) {
+      $name = $asset->file_file_name;
+      l('Name before: '.$name);
+      l('Content type: '.$asset->file_content_type);
+      if ($asset->file_content_type == "image/jpeg" && !endsWith($name, ".jpg")) {
+        $name = $name.".jpg";
+      } elseif ($asset->file_content_type == "image/png" && !endsWith($name, ".png")) {
+        $nme = $name.".png";      
+      }
+      return $name;
     }
 
     private function download($url, $dest) {
