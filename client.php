@@ -125,8 +125,11 @@
         $this->broadcast_text($job);
       } 
       elseif ($job->method == "broadcast_Image") {
-        $this->broadcast_image ($job);
+        $this->broadcast_image($job);
       } 
+      elseif ($job->method == "broadcastVideo") {
+        $this->broadcast_video($job);
+      }
       elseif ($job->method == "group_create") {
         $this->create_group($job);
       }
@@ -278,6 +281,36 @@
       if ($this->download($url, $file_name)) {
         $targets = explode(',', $job->targets);
         $job->whatsapp_message_id = $this->wa->sendBroadcastImage($targets, $file_name, false, 0, "", $broadcast->message);
+        $job->sent = true;
+        $job->save();
+      }
+    }
+
+    private function broadcast_video($job) {
+      $asset = Asset::find_by_id($job->asset_id); 
+      $file_name = 'tmp/'.$asset->id.'_'.$this->get_video_file_name($asset);
+
+      l("File name: ".$file_name);
+      $downloaded = file_exists($file_name);
+      if (!$downloaded) {
+        l("File does not exist");
+        $asset_url = $asset->url;
+
+        if (!startsWith($asset->url, "http")) {
+          $asset_url = $this->url.$asset->url;   
+        }
+
+        $downloaded = $this->download($asset_url, $file_name);
+      }
+
+      if ($downloaded) {        
+        $message = Message::find_by_id($job->message_id);
+        $caption = $message->text;
+
+        l("File has been downloaded : ".$caption);
+
+        $targets = explode(',', $job->targets);
+        $job->whatsapp_message_id = $this->wa->sendBroadcastVideo($targets, $file_name, false, 0, "", $caption);
         $job->sent = true;
         $job->save();
       }
