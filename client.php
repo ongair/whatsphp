@@ -39,7 +39,7 @@
     }
 
     public function loop() {
-      if (!$this->connected) {
+      if (!$this->connected && $this->is_active()) {
         
         try
         {
