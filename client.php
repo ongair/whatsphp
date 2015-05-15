@@ -93,6 +93,13 @@
 
             exit(2);
           }
+        }
+        catch(LoginFailureException $le) {
+          l('Login failure '.$le->getMessage());
+          if (is_production()) {
+            send_sms(getenv('ADMIN_TEL'), $this->account.' ('.$this->nickname.') has gone offline unexpectedly.');
+            exit(0);
+          }
         }        
       }      
     }
