@@ -76,6 +76,10 @@
     return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
   }
 
+  function getServiceName($name) {
+    return str_replace(" ", "-", strtolower($name));
+  }
+
   function send_sms($to, $message) {
     $url = getenv('SMS_GATEWAY_URL');
     $channel_id = getenv('SMS_GATEWAY_CHANNEL_ID');

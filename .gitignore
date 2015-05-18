@@ -5,3 +5,4 @@ tmp/*
 composer.phar
 vendor/
 log/*.log
+services/
