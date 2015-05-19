@@ -37,8 +37,13 @@
       'onGroupsChatCreate',
       'onGroupsParticipantsAdd',
       'onGroupsParticipantsRemove',
-      'onGroupisCreated'
+      'onGroupisCreated',
+      'onGetPrivacyBlockedList'
     );
+
+    public function onGetPrivacyBlockedList( $me, $data ) {
+      $this->client->setBlockedContacts($data);
+    }
 
     public function onGroupisCreated( $me, $creator, $gid, $subject, $admin, $creation, $members = array()){
       l('Group created '.$subject.' id '.$gid);
@@ -98,10 +103,9 @@
 
     public function onGetReceipt( $from, $id, $offline, $retry, $participant, $type )
     {
-      l('Got '.$type.' receipt '.$id.' from '.$from);      
-      
+      l('Got type '.$type.' receipt '.$id.' from '.$from.' - '.$participant.' - offline - '.$offline.' - retry - '.$retry.'.');            
       $job = JobLog::find_by_whatsapp_message_id_and_account_id($id, $this->client->get_account_id());
-      // l('Method '.$job->method);
+      
       if ($job->method == "sendMessage" || $job->method == 'sendImage') {        
 
         $message = Message::find_by_id($job->message_id);
@@ -109,13 +113,13 @@
         $message->receipt_timestamp = date('Y-m-d H:i:s');
         $message->save();
 
-        if ($type == 'read')
-        {
-          $data = array('account' => $this->client->get_account(), 'receipt' => array( 'type' => 'read', 'message_id' => $message->id ));
-          $this->post($this->url.'/receipt', $data);
+        if (empty($type)) {
+          $type = 'delivered';
         }
+        
+        $data = array('account' => $this->client->get_account(), 'receipt' => array( 'type' => $type, 'message_id' => $message->id ));
+        $this->post($this->url.'/receipt', $data);
 
-        // pubnub message delivered
       }
       elseif ($job->method == 'broadcast_Text' || $job->method == 'broadcast_Image') {        
         $data = array('account' => $this->client->get_account(), 'receipt' => array('message_id' => $id, 'phone_number' => get_phone_number($participant) ));
@@ -184,7 +188,6 @@
 
     public function onDisconnect($mynumber, $socket)
     {
-      l("Disconnected");
       $this->client->toggleConnection(false);
     }
 
