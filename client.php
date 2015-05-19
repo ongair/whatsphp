@@ -13,6 +13,7 @@
     private $nickname;
     private $wa;
     private $connected;
+    private $blockedContacts;
 
     function __construct($account, $db_key = 'DB', $url_key = 'URL') {
       $this->account = $account;
@@ -38,13 +39,19 @@
       }       
     }
 
+    private function init() {
+      $this->blockedContacts = array();
+      $this->wa->sendGetPrivacyBlockedList();
+    }
+
     public function loop() {
       if (!$this->connected && $this->is_active()) {
         
         try
         {
           $this->wa->connect();
-          $this->wa->loginWithPassword($this->password);          
+          $this->wa->loginWithPassword($this->password);  
+          $this->init();        
 
           $start = microtime(true);
           $secs = 0;
@@ -161,10 +168,46 @@
       elseif ($job->method == "sendVideo") {
         $this->send_video($job);
       }
+      elseif ($job->method == "blockContacts" || $job->method == "unblockContacts") {
+        $this->block_contacts($job);
+      }
       else {
         l('Job is '.$job->method);
       }
     }
+
+    public function setBlockedContacts($contacts) {
+      $this->blockedContacts = $contacts;
+    }
+
+    /**  
+     * Block contacts
+     */
+    private function block_contacts($job) {
+      $target = $this->wa->getJID($job->targets);
+      $already_blocked = array_search($target, $this->blockedContacts);
+      $unblock = $job->method == "unblockContacts";
+
+      if (!($already_blocked === false) && !$unblock) {
+        // if we are not blocked and the job is to block
+        array_push($this->blockedContacts, $target);
+      }
+      else if($unblock && $already_blocked > -1) {
+        // we are already blocked and the job is to unblock
+        unset($this->blockedContacts[$already_blocked]);
+        $this->blockedContacts = array_values($this->blockedContacts);
+      }
+      else if ($already_blocked == false && !$unblock) {
+        array_push($this->blockedContacts, $target);
+      }
+      else {
+        l('No change in blocked list '.$job->method.' and found '.$already_blocked);
+      }
+
+      $this->wa->sendSetPrivacyBlockedList($this->blockedContacts);
+      $job->sent = true;
+      $job->save();
+    } 
 
 
     /**
