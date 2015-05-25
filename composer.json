@@ -6,6 +6,7 @@
     "pubnub/pubnub": "3.7.*",
     "analog/analog": "dev-master",
     "rmccue/requests": ">=1.0",
-    "rollbar/rollbar": "~0.11.0"
+    "rollbar/rollbar": "~0.11.0",
+    "mandrill/mandrill": "1.0.*"
   }
 }
