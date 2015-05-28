@@ -83,6 +83,8 @@
           $msg = $e->getMessage();
           // Rollbar::report_message($this->account." Disconnected.", 'warning');
           l('Error occurred when trying to connect '.$msg);
+
+          // send_sms(getenv('ADMIN_TEL'), 'Test');
                     
           if ($msg != "Connection Closed!")  
           {
@@ -171,6 +173,9 @@
       elseif ($job->method == "blockContacts" || $job->method == "unblockContacts") {
         $this->block_contacts($job);
       }
+      elseif ($job->method == "sync") {
+        $this->sync($job);
+      }
       else {
         l('Job is '.$job->method);
       }
@@ -178,6 +183,13 @@
 
     public function setBlockedContacts($contacts) {
       $this->blockedContacts = $contacts;
+    }
+
+    /**
+     * Sync contacts
+     */
+    private function sync($job) {
+      $numbers = $job->targets;
     }
 
     /**  
