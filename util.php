@@ -76,6 +76,12 @@
     return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
   }
 
+  function list_services() {
+    $output = shell_exec('ls /etc/init/whatsapp-*');
+    $list = explode(PHP_EOL, $output);
+    return $list;
+  }
+
   function send_sms($to, $message) {
     $url = getenv('SMS_GATEWAY_URL');
     $channel_id = getenv('SMS_GATEWAY_CHANNEL_ID');
