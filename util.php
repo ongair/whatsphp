@@ -143,7 +143,14 @@
       </methodCall>";
 
     $headers = array('content-type' => 'text/xml;charset=utf8');
-    $response = Requests::post($url, $headers, $xml);
 
-    return $response->success;
+    try
+    {
+      $response = Requests::post($url, $headers, $xml);
+      return $response->success;
+    }
+    catch(Exception $e) {
+      echo 'Caught exception: ',  $e->getMessage(), "\n";
+      return false;
+    }
   }
