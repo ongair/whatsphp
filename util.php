@@ -82,8 +82,15 @@
     return $list;
   }
 
+  function service_status($name, $status='') {
+    if ($status == '')
+      $status = shell_exec('service '.$name.' status');
+
+    return startsWith($status, $name.' start/running');
+  }
+
   function service_name($conf) {
-    return explode('.conf', explode('/etc/init/', $conf)[1])[0];
+    return strstr(strstr($conf, 'whatsapp'), '.conf', true);  
   }
 
   function send_sms($to, $message) {
