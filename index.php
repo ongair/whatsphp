@@ -28,6 +28,37 @@ $app->get('/status', function () use ($app) {
     'active' => $count));
 });
 
+$app->get('/account/:id/status', function ($id) use ($app) {
+
+  _init_db();
+  $account = Account::find_by_phone_number($id);
+
+  if (!$account == null) {
+
+    $online = true;
+    if (is_production()) {
+      $service_name = service_from_phone_number($id);
+      $online = (bool) service_status($service_name);
+    }
+
+    $app->render(200, array(
+      'phone_number' => $id,
+      'exists' => true,
+      'online' => $online,
+      'active' => (bool) $account->setup,
+      'beta_user' => (bool) $account->beta_user
+    ));  
+  }
+  else {
+    $app->render(200, array(
+      'phone_number' => $id,
+      'exists' => false      
+    ));
+  }
+
+  
+});
+
 // Request an SMS code
 $app->post('/request', function() use ($app) {
 
