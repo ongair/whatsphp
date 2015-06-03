@@ -28,6 +28,10 @@
     return getenv('ENV') == 'production';
   }
 
+  function is_development() {
+    return getenv('ENV') == 'development';
+  }
+
   function post_data($url, $data)
   {
     $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
