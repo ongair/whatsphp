@@ -93,7 +93,7 @@
     return startsWith($status, $name.' start/running');
   }
 
-  function service_from_phone_number($phone_number, $grep) {
+  function service_from_phone_number($phone_number, $grep='') {
     if ($grep == '')
       $output = shell_exec('grep '.$phone_number.' /etc/init/whatsapp*');
 
