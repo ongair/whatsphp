@@ -89,6 +89,14 @@
     return startsWith($status, $name.' start/running');
   }
 
+  function service_from_phone_number($phone_number, $grep) {
+    if ($grep == '')
+      $output = shell_exec('grep '.$phone_number.' /etc/init/whatsapp*');
+
+    preg_match("/\/etc\/init\/whatsapp\S*.conf/", $grep, $matches);
+    return $matches[0];
+  }
+
   function service_name($conf) {
     return strstr(strstr($conf, 'whatsapp'), '.conf', true);  
   }
