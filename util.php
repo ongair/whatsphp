@@ -82,6 +82,10 @@
     return $list;
   }
 
+  function service_name($conf) {
+    return explode('.conf', explode('/etc/init/', $conf)[1])[0];
+  }
+
   function send_sms($to, $message) {
     $url = getenv('SMS_GATEWAY_URL');
     $channel_id = getenv('SMS_GATEWAY_CHANNEL_ID');
