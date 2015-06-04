@@ -95,8 +95,7 @@
 
   function service_from_phone_number($phone_number, $grep='') {
     if ($grep == '')
-      $output = shell_exec('grep '.$phone_number.' /etc/init/whatsapp*');
-
+      $grep = shell_exec('grep '.$phone_number.' /etc/init/whatsapp*');
     preg_match("/\/etc\/init\/whatsapp\S*.conf/", $grep, $matches);
     return $matches[0];
   }
