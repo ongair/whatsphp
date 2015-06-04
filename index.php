@@ -42,9 +42,10 @@ $app->get('/account/:id/status', function ($id) use ($app) {
 
     $app->render(200, array(
       'phone_number' => $id,
+      'name' => $account->name,
       'exists' => true,
       'online' => $online,
-      'active' => (bool) $account->setup,
+      'active' => (bool) $account->setup,      
       'beta_user' => (bool) $account->beta_user
     ));  
   }
