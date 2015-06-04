@@ -100,6 +100,17 @@
     return $matches[0];
   }
 
+  function service_running($phone_number) {
+    // root      5810  0.0  0.0   9388   932 pts/7    S+   10:47   0:00 grep 254719701953
+    // root      5785  0.3  1.7 225576 17976 ?        Ss   10:46   0:00 php -f /var/www/whatsapp/ongair.php 254719701956
+
+    $response = shell_exec('ps aux | grep '.$phone_number);
+    $lines = explode(PHP_EOL, $response);
+    $first = $lines[0];
+    preg_match("/\/var\/www\/whatsapp\/ongair.php\S* ".$phone_number."/", $first, $matches);
+    return count($matches) > 0
+  }
+
   function service_name($conf) {
     return strstr(strstr($conf, 'whatsapp'), '.conf', true);  
   }
