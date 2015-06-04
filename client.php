@@ -161,11 +161,20 @@
       elseif ($job->method == "sendVideo") {
         $this->send_video($job);
       }
+      elseif ($job->method == "sync") {
+        $this->sync($job);
+      }
       else {
         l('Job is '.$job->method);
       }
     }
 
+    /**
+     * Sync contacts
+     */
+    private function sync($job) {
+      $numbers = $job->targets;
+    }
 
     /**
      * End the group
