@@ -38,7 +38,7 @@ $app->get('/account/:id/status', function ($id) use ($app) {
     $online = true;
     if (is_production()) {
       $service_name = service_from_phone_number($id);
-      $online = (bool) service_status($service_name);
+      $online = (bool) service_status(service_name($service_name));
     }
 
     $app->render(200, array(
