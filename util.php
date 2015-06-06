@@ -112,6 +112,24 @@
     return strstr(strstr($conf, 'whatsapp'), '.conf', true);  
   }
 
+  function getServiceName($name) {
+    return str_replace(" ", "-", strtolower($name));
+  }
+
+  function send_email($to, $subject, $message) {
+    $mandrill = new Mandrill(getenv('MANDRILL_KEY'));
+    $msg = array(
+        'text' => $message,
+        'subject' => $subject,
+        'from_email' => 'notifications@ongair.im',
+        'from_name' => 'Ongair',
+        'to' => array(
+            array('email' => $to)
+          )
+      );
+    $result = $mandrill->messages->send($msg);
+  }
+
   function send_sms($to, $message) {
     $url = getenv('SMS_GATEWAY_URL');
     $channel_id = getenv('SMS_GATEWAY_CHANNEL_ID');

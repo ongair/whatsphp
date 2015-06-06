@@ -139,6 +139,29 @@ $app->post('/register', function() use ($app) {
 
 });
 
+$app->post('/activate', function() use ($app) {
+
+  $username = $app->request->params('phone_number');
+  $name = $app->request->params('nickname');
+
+  $service = "whatsapp-".getServiceName($name);
+
+  $target = getenv('UPSTART_DIR')."/".$service.'.conf';
+
+  $copied = copy("service.template", $target);
+
+  $raw = file_get_contents($target);
+  $raw = str_replace("DIR", getenv('CWD'), $raw);
+  $raw = str_replace("ACCOUNT", $username, $raw);
+  file_put_contents($target,$raw);
+
+  $app->render(200, array(
+    'error' => !$copied,
+    'service' => $service,
+    'target' => $target
+  ));
+});
+
 
 
 
