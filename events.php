@@ -115,22 +115,24 @@
       
       $job = JobLog::find_by_whatsapp_message_id_and_account_id($id, $this->client->get_account_id());
       // l('Method '.$job->method);
-      if ($job->method == "sendMessage" || $job->method == 'sendImage') {        
+      if ($job != NULL && $job->method == "sendMessage" || $job->method == 'sendImage') {        
 
         $message = Message::find_by_id($job->message_id);
-        $message->received = true;
-        $message->receipt_timestamp = date('Y-m-d H:i:s');
-        $message->save();
+        if ($message != NULL) {
+          $message->received = true;
+          $message->receipt_timestamp = date('Y-m-d H:i:s');
+          $message->save();
 
-        if ($type == 'read')
-        {
-          $data = array('account' => $this->client->get_account(), 'receipt' => array( 'type' => 'read', 'message_id' => $message->id ));
-          $this->post($this->url.'/receipt', $data);
-        }
+          if ($type == 'read')
+          {
+            $data = array('account' => $this->client->get_account(), 'receipt' => array( 'type' => 'read', 'message_id' => $message->id ));
+            $this->post($this->url.'/receipt', $data);
+          }
 
-        // pubnub message delivered
+          // pubnub message delivered  
+        }        
       }
-      elseif ($job->method == 'broadcast_Text' || $job->method == 'broadcast_Image') {        
+      elseif ($job != NULL && $job->method == 'broadcast_Text' || $job->method == 'broadcast_Image') {        
         $data = array('account' => $this->client->get_account(), 'receipt' => array('message_id' => $id, 'phone_number' => get_phone_number($participant) ));
         $url = $this->url.'/broadcast_receipt';
 
