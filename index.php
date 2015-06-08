@@ -146,7 +146,8 @@ $app->post('/activate', function() use ($app) {
 
   $service = "whatsapp-".getServiceName($name);
 
-  $target = getenv('UPSTART_DIR')."/".$service.'.conf';
+  // $target = getenv('UPSTART_DIR')."/".$service.'.conf';
+  $target = "tmp/services/".$service.'.conf';
 
   $copied = copy("service.template", $target);
 
