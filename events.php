@@ -37,8 +37,21 @@
       'onGroupsChatCreate',
       'onGroupsParticipantsAdd',
       'onGroupsParticipantsRemove',
-      'onGroupisCreated'
+      'onGroupisCreated',
+      'onGetSyncResult'
     );
+
+    public function onGetSyncResult($result) {
+      $account_id = $this->client->get_account_id();
+      $existing = array();
+      foreach ($result->existing as $number) {
+        array_push($existing, get_phone_number($number));
+      }
+
+      $data = array('account' => $this->client->get_account(), 'registered' => $existing, 'unregistered' => $result->nonExisting );
+
+      $this->post($this->url.'/contacts/sync', $data);
+    }
 
     public function onGroupisCreated( $me, $creator, $gid, $subject, $admin, $creation, $members = array()){
       l('Group created '.$subject.' id '.$gid);

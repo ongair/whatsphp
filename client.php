@@ -30,6 +30,7 @@
       $acc = $this->get_full_account();
       $this->password = $acc->whatsapp_password;
       $this->nickname = $acc->name;
+      $this->jobCount = 0;
 
       if ($this->is_active()) {
         $this->wa = new WhatsProt($this->account, $this->nickname, $debug);
@@ -60,7 +61,7 @@
 
             $diff = $timeout - $secs;
             if ($diff > 5) {
-              sleep(3);
+              sleep(1);
             }
             // l('Disconnect in: '.($timeout - $secs));
           }
@@ -167,13 +168,19 @@
       else {
         l('Job is '.$job->method);
       }
+      if ($job->sent)
+        $this->jobCount += 1;
+      l('Job count: '.$this->jobCount);
     }
 
     /**
      * Sync contacts
      */
     private function sync($job) {
-      $numbers = $job->targets;
+      $numbers = explode(',', $job->targets);      
+      $this->wa->sendSync($numbers);
+      $job->sent = true;
+      $job->save();
     }
 
     /**
