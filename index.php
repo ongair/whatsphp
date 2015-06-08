@@ -18,7 +18,6 @@ $app->get('/status', function () use ($app) {
   // attempt to connect to DB
   _init_db();
 
-  // $count = Account::count()
   $count = Account::count(array('conditions' => 'setup = true'));
   $error = getenv('ERROR') == 'true';
 

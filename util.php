@@ -80,8 +80,8 @@
     return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== FALSE);
   }
 
-  function list_services() {
-    $output = shell_exec('ls /etc/init/whatsapp-*');
+  function list_services($dir = '/etc/init') {
+    $output = shell_exec('ls '.$dir.'/whatsapp-*');
     $list = explode(PHP_EOL, $output);
     return $list;
   }
