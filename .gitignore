@@ -6,3 +6,4 @@ composer.phar
 vendor/
 log/*.log
 services/
+scheduler.sh

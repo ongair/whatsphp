@@ -6,7 +6,7 @@
 
   Dotenv::load(__DIR__);
 
-  $services = list_services('tmp/services');
+  $services = list_services(getenv('CWD').'tmp/services');
   _init_db();
 
   foreach ($services as $service) {    
@@ -25,11 +25,13 @@
           rename($service, $target);
 
           if (is_production()) {
-            shell_exec('service '.$name.' start');
+            #shell_exec('service '.$name.' start');
           }
         }        
       }      
     }
   }
+
+  echo date("H:i:s")." Done.".PHP_EOL;
 
   
