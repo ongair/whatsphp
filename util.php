@@ -109,7 +109,8 @@
   }
 
   function service_name($conf) {
-    return strstr(strstr($conf, 'whatsapp'), '.conf', true);  
+    preg_match("/whatsapp-.*.conf/", $conf, $matches);
+    return strstr($matches[0], '.conf', true);
   }
 
   function getServiceName($name) {
