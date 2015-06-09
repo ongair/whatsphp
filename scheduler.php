@@ -24,7 +24,7 @@
           rename($service, $target);
 
           if (is_production()) {
-            #shell_exec('service '.$name.' start');
+            shell_exec('service '.$name.' start');
           }
         }        
       }      
