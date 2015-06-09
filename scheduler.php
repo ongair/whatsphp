@@ -6,9 +6,8 @@
 
   Dotenv::load(__DIR__);
 
-  $services = list_services(getenv('CWD').'tmp/services');
+  $services = list_services(getenv('CWD').'/tmp/services');
   _init_db();
-
   foreach ($services as $service) {    
     if ($service != "" || endsWith($service, "No such file or directory"))
     {
