@@ -26,6 +26,7 @@
     public $activeEvents = array(
       'onConnect',
       'onDisconnect',
+      'onLoginSuccess',
       'onGetMessage',
       'onGetReceipt',
       'onGetGroupMessage',
@@ -41,6 +42,10 @@
       'onGroupisCreated',
       'onGetSyncResult'
     );
+
+    public function onLoginSuccess($me, $kind, $status, $creation, $expiration) {
+      l('Logged in '.$status);
+    }
 
     public function onGetAudio($me, $from, $id, $type, $time, $name, $size, $url, $file, $mimeType, $fileHash, $duration, $acodec, $fromJID_ifGroup = null) {
       l('From: '.$from);
