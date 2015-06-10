@@ -142,24 +142,32 @@ $app->post('/activate', function() use ($app) {
 
   $username = $app->request->params('phone_number');
   $name = $app->request->params('nickname');
-
+  $debug = $app->request->params('debug') == 'true';
   $service = "whatsapp-".getServiceName($name);
-
-  // $target = getenv('UPSTART_DIR')."/".$service.'.conf';
   $target = "tmp/services/".$service.'.conf';
 
-  $copied = copy("service.template", $target);
+  if ($debug) {
+    $app->render(200, array(
+        'error' => false,
+        'service' => $service,
+        'target' => $target
+      ));
+  }
+  else {
+    $copied = copy("service.template", $target);
 
-  $raw = file_get_contents($target);
-  $raw = str_replace("DIR", getenv('CWD'), $raw);
-  $raw = str_replace("ACCOUNT", $username, $raw);
-  file_put_contents($target,$raw);
+    $raw = file_get_contents($target);
+    $raw = str_replace("DIR", getenv('CWD'), $raw);
+    $raw = str_replace("ACCOUNT", $username, $raw);
+    file_put_contents($target,$raw);
 
-  $app->render(200, array(
-    'error' => !$copied,
-    'service' => $service,
-    'target' => $target
-  ));
+    $app->render(200, array(
+      'error' => !$copied,
+      'service' => $service,
+      'target' => $target
+    ));  
+  }
+  
 });
 
 

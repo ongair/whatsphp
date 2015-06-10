@@ -102,6 +102,10 @@
             exit(0);
           }
         }        
+      }
+      else {
+        l('Account is not active');
+        exit(0);
       }      
     }
 

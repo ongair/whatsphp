@@ -33,6 +33,7 @@
       'onGetGroupImage',
       'onGetVideo',
       'onGetGroupVideo',
+      'onGetAudio',
       'onGetLocation',
       'onGroupsChatCreate',
       'onGroupsParticipantsAdd',
@@ -40,6 +41,17 @@
       'onGroupisCreated',
       'onGetSyncResult'
     );
+
+    public function onGetAudio($me, $from, $id, $type, $time, $name, $size, $url, $file, $mimeType, $fileHash, $duration, $acodec, $fromJID_ifGroup = null) {
+      l('From: '.$from);
+      l('Type: '.$type);
+      l('Codec: '.$acodec);
+      l('From JID: '.$fromJID_ifGroup);
+
+      $post_url = $this->url.'/upload';
+      $data = array('account' => $me, 'message' => array('url' => $url, 'message_type' => 'Audio', 'phone_number' => get_phone_number($from), 'whatsapp_message_id' => $id, 'name' => $name ));
+      $this->post($post_url, $data);
+    }
 
     public function onGetSyncResult($result) {
       $account_id = $this->client->get_account_id();
