@@ -1,6 +1,7 @@
 <?php
   require 'lib/whatsapp/events/AllEvents.php';
-  require 'models/Message.php';  
+  require 'models/Message.php'; 
+  require 'models/Contact.php'; 
   use Pubnub\Pubnub;
 
   class Events extends AllEvents
@@ -115,13 +116,22 @@
       # check if the message exists in the db
       if (!$this->exists($id)) {
                 
-
+        $phone_number = get_phone_number($from);
+        $account_id = $this->client->get_account_id();
+        $account = Account::find_by_id($account_id);
+        
         $url = $this->url.'/messages';
-        $data = array('account' => $me, 'message' => array( 'text' => $body, 'phone_number' => get_phone_number($from), 'message_type' => 'Text', 'whatsapp_message_id' => $id, 'name' => $name) );
+        $data = array('account' => $me, 'message' => array( 'text' => $body, 'phone_number' => $phone_number, 'message_type' => 'Text', 'whatsapp_message_id' => $id, 'name' => $name) );
         
         $this->post($url, $data);
 
-        $notif = array('type' => 'text', 'phone_number' => get_phone_number($from), 'text' => $body, 'name' => $name);
+        $contact = Contact::find_by_phone_number_and_account_id($phone_number, $account_id);
+        if (!$contact->synced && $account->experimental) {
+          $attributes = array('method' => 'sync', 'sent' => false, 'targets' => $contact->phone_number, 'args' => 'Interactive', 'account_id' => $account_id);
+          $job = JobLog::create($attributes);
+        }
+
+        $notif = array('type' => 'text', 'phone_number' => $phone_number , 'text' => $body, 'name' => $name);
         $this->send_realtime($notif);
       }      
     }
