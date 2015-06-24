@@ -172,9 +172,12 @@
       else {
         l('Job is '.$job->method);
       }
-      if ($job->sent)
+      if ($job->sent) {
         $this->jobCount += 1;
-      l('Job count: '.$this->jobCount);
+        $job->run_time = date('Y-m-d H:i:s');
+        $job->save();
+      }
+      l('Job count: '.$this->jobCount); 
     }
 
     /**
