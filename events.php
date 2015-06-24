@@ -46,6 +46,8 @@
 
     public function onLoginSuccess($me, $kind, $status, $creation, $expiration) {
       l('Logged in '.$status);
+      // create status log
+      StatusLog::create(array('account_id' => $this->client->get_account_id(), 'status' => 'Connected'));
     }
 
     public function onGetAudio($me, $from, $id, $type, $time, $name, $size, $url, $file, $mimeType, $fileHash, $duration, $acodec, $fromJID_ifGroup = null) {
