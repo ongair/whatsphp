@@ -127,11 +127,12 @@
         
         $this->post($url, $data);
 
-        $contact = Contact::find_by_phone_number_and_account_id($phone_number, $account_id);
-        if (!$contact->synced && $account->experimental) {
-          $attributes = array('method' => 'sync', 'sent' => false, 'targets' => $contact->phone_number, 'args' => 'Interactive', 'account_id' => $account_id);
-          $job = JobLog::create($attributes);
-        }
+        // $contact = Contact::find_by_phone_number_and_account_id($phone_number, $account_id);
+        // if (!$contact->synced && $account->experimental) {
+          // TODO: How to avoid double syncs
+          // $attributes = array('method' => 'sync', 'sent' => false, 'targets' => $contact->phone_number, 'args' => 'Interactive', 'account_id' => $account_id);
+          // $job = JobLog::create($attributes);
+        // }
 
         $notif = array('type' => 'text', 'phone_number' => $phone_number , 'text' => $body, 'name' => $name);
         $this->send_realtime($notif);
