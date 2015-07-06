@@ -37,15 +37,4 @@
     $wa->sendPromoteParticipants($gjid, $jid);
     l('Promoted');
   }
-  elseif  ($method == 'createGroup') {
-    $wa = new WhatsProt($username, $name, true);
-    $wa->connect();
-    l('Connected');
-
-    $wa->loginWithPassword($password);
-    $targets = explode(',', $args);
-
-    // $id = $wa->sendGroupsChatCreate("Contact Centre Escalations", array('254723677137', '254731088343', '254721849772', '254724773912', '254712536979', '254721796352', '254724528221', '254720471565') );        
-    // l('Group id '.$id);
-  }
 
