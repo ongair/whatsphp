@@ -15,28 +15,34 @@
     private $connected;
 
     function __construct($account, $db_key = 'DB', $url_key = 'URL') {
-      $this->account = $account;
-      $this->connected = false;
-      $debug = getenv('DEBUG') == 'true';
+      try
+      {
+        $this->account = $account;
+        $this->connected = false;
+        $debug = getenv('DEBUG') == 'true';
 
-      chdir(getenv('CWD'));
+        chdir(getenv('CWD'));
 
-      init_log($account);
-      
-      $this->url = getenv($url_key);
-      $this->_init_db($db_key);
-      $this->account_id = $this->get_account_id();          
+        init_log($account);
+        
+        $this->url = getenv($url_key);
+        $this->_init_db($db_key);
+        $this->account_id = $this->get_account_id();          
 
-      $acc = $this->get_full_account();
-      $this->password = $acc->whatsapp_password;
-      $this->nickname = $acc->name;
-      $this->jobCount = 0;
+        $acc = $this->get_full_account();
+        $this->password = $acc->whatsapp_password;
+        $this->nickname = $acc->name;
+        $this->jobCount = 0;
 
-      if ($this->is_active()) {
-        $this->wa = new WhatsProt($this->account, $this->nickname, $debug);
-        $events = new Events($this, $this->wa, $url_key);
-        $events->setEventsToListenFor($events->activeEvents);        
-      }       
+        if ($this->is_active()) {
+          $this->wa = new WhatsProt($this->account, $this->nickname, $debug);
+          $events = new Events($this, $this->wa, $url_key);
+          $events->setEventsToListenFor($events->activeEvents);        
+        }
+      }
+      catch(ActiveRecord\DatabaseException $dbe) {
+        $this->handle_db_error($dbe);     
+      }             
     }
 
     public function loop() {
@@ -101,7 +107,10 @@
             send_sms(getenv('ADMIN_TEL'), $this->account.' ('.$this->nickname.') login failure.');
             exit(0);
           }
-        }        
+        } 
+        catch(ActiveRecord\DatabaseException $dbe) {
+          $this->handle_db_error($dbe);     
+        }
       }
       else {
         l('Account is not active');
@@ -470,5 +479,17 @@
           $env => $db
         )
       );
+    }
+
+    private function handle_db_error($dbe) {
+      l('Cannot connect to the database');
+      $error_message = $dbe->getMessage();
+
+      if (contains_string($error_message, "Operation timed out")
+       || contains_string($error_message, "Can't connect to MySQL server") ) {
+        
+        l("Can't reach DB".PHP_EOL.$error_message);
+        exit(2);  
+      }
     }
   }
