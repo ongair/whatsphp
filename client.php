@@ -126,7 +126,7 @@
       $jobs = JobLog::all(array('sent' => false, 'account_id' => $this->account_id, 'pending' => false));
       
       if (count($jobs) > 0) {
-        l("Num jobs ".count($jobs));
+        l("Num pending jobs ".count($jobs));
 
         foreach ($jobs as $job) {        
           $this->do_job($job);
@@ -186,7 +186,7 @@
         $job->run_time = date('Y-m-d H:i:s');
         $job->save();
       }
-      l('Job count: '.$this->jobCount); 
+      l('Jobs executed count: '.$this->jobCount); 
     }
 
     /**
