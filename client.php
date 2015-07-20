@@ -50,6 +50,7 @@
         
         try
         {
+          l('About to connect');
           $this->wa->connect();
           $this->wa->loginWithPassword($this->password);          
 

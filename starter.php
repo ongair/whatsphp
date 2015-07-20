@@ -8,10 +8,11 @@
 
   _init_db();
   $count = 0;
+  $limit = 10;
   $accounts = Account::all(array('setup' => true));
   foreach ($accounts as $account) {
     $number = $account->phone_number;
-    if (!service_running($number) && $count < 5) {
+    if (!service_running($number) && $count < $limit) {
      	$service_name = service_from_phone_number($number);
 	    $service = service_name($service_name);
 
