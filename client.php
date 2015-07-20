@@ -489,6 +489,7 @@
        || contains_string($error_message, "Can't connect to MySQL server") ) {
         
         l("Can't reach DB".PHP_EOL.$error_message);
+        sleep(300);
         exit(2);  
       }
     }
