@@ -12,6 +12,7 @@
   foreach ($accounts as $account) {
     $number = $account->phone_number;
     if (!service_running($number)) {
-      echo "Account: ".$account->name." - ".$account->phone_number."  needs to start".PHP_EOL;      
+     	$service_name = service_from_phone_number($number);
+	echo "Account: ".$account->name." - ".$account->phone_number."  needs to start : ".$service_name.PHP_EOL;      
     }
   }
