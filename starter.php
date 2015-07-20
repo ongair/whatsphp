@@ -10,5 +10,8 @@
 
   $accounts = Account::all(array('setup' => true));
   foreach ($accounts as $account) {
-    echo "Account: ".$account->name." - ".$account->phone_number.PHP_EOL;
+    $number = $account->phone_number;
+    if (!service_running($number)) {
+      echo "Account: ".$account->name." - ".$account->phone_number."  needs to start".PHP_EOL;      
+    }
   }
