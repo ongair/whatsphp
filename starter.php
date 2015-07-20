@@ -13,6 +13,8 @@
     $number = $account->phone_number;
     if (!service_running($number)) {
      	$service_name = service_from_phone_number($number);
-	echo "Account: ".$account->name." - ".$account->phone_number."  needs to start : ".$service_name.PHP_EOL;      
+	    $service = service_name($service_name);
+
+      echo "Account: ".$account->name." - ".$account->phone_number."  needs to start : ".$service.PHP_EOL;      
     }
   }
