@@ -101,7 +101,7 @@
     if ($grep == '')
       $grep = shell_exec('grep '.$phone_number.' /etc/init/whatsapp-*');
     preg_match("/\/etc\/init\/whatsapp-\S*.conf/", $grep, $matches);
-    if (count($matches[0]) > 0)
+    if (!empty($matches) && count($matches[0]) > 0)
       return $matches[0];
     else
       return NULL;
