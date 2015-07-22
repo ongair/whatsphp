@@ -85,7 +85,7 @@
           // Rollbar::report_message($this->account." Disconnected.", 'warning');
           l('Error occurred when trying to connect '.$msg);
                     
-          if ($msg != "Connection Closed!")  
+          if ($msg != "Connection Closed!" || $msg != "Connectivity error")  
           {
             if (is_production()) {
               send_sms(getenv('ADMIN_TEL'), $this->account.' ('.$this->nickname.') has gone offline unexpectedly.');
