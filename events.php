@@ -28,6 +28,7 @@
       'onConnect',
       'onDisconnect',
       'onLoginSuccess',
+      'onLoginFailed',
       'onGetMessage',
       'onGetReceipt',
       'onGetGroupMessage',
@@ -43,6 +44,10 @@
       'onGroupisCreated',
       'onGetSyncResult'
     );
+
+    public function onLoginFailed($me, $data) {
+      l('Login failed '.$data);
+    }
 
     public function onLoginSuccess($me, $kind, $status, $creation, $expiration) {
       l('Logged in '.$status);
