@@ -37,4 +37,13 @@
     $wa->sendPromoteParticipants($gjid, $jid);
     l('Promoted');
   }
+  elseif ($method == 'sendRemoveAccount') {
+    $wa = new WhatsProt($username, $name, true);
+    $wa->connect();
+    l('Connected');
+    $wa->loginWithPassword($password);
+
+    $wa->sendRemoveAccount();
+    $wa->disconnect();    
+  }
 
