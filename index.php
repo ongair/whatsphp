@@ -143,7 +143,8 @@ $app->post('/activate', function() use ($app) {
   $username = $app->request->params('phone_number');
   $name = $app->request->params('nickname');
   $debug = $app->request->params('debug') == 'true';
-  $service = "whatsapp-".getServiceName($name);
+  $service = "whatsapp-".$username;
+  // getServiceName($name);
   $target = "tmp/services/".$service.'.conf';
 
   if ($debug) {

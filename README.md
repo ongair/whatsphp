@@ -6,9 +6,12 @@ Install composer
 ```
 curl -sS https://getcomposer.org/installer | php
 php composer.phar install
+apt-get install php5
+apt-get install php5-mcrypt
+apt-get install php5-mysql
 ```
 
-This needs mod_rewrite enabled if running the web engine
+This needs mod_rewrite enabled if running the web engine. This requires apache2 to be installed.
 
 ```sudo a2enmod rewrite```
 
