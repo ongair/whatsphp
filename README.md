@@ -9,11 +9,23 @@ php composer.phar install
 apt-get install php5
 apt-get install php5-mcrypt
 apt-get install php5-mysql
+mkdir tmp
+mkdir tmp/services
 ```
 
 This needs mod_rewrite enabled if running the web engine. This requires apache2 to be installed.
 
 ```sudo a2enmod rewrite```
+
+Enable .htaccess files
+
+Edit /etc/apache2/sites-available/default
+
+```
+  AllowOverride All
+```
+
+
 
 Running the engine
 ==================
