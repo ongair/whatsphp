@@ -9,6 +9,7 @@ php composer.phar install
 apt-get install php5
 apt-get install php5-mcrypt
 apt-get install php5-mysql
+apt-get install php5-curl
 mkdir tmp
 mkdir tmp/services
 ```
