@@ -16,10 +16,12 @@
      	$service_name = service_from_phone_number($number);
 	    $service = service_name($service_name);
 
-      echo "Account: ".$account->name." - ".$account->phone_number."  needs to start : ".$service.PHP_EOL;      
-      $running = shell_exec('service '.$service.' start');
-      echo "Account status: ".$running;
-      sleep(5);
-      $count++;
+      if (!empty($service)) {
+        echo "Account: ".$account->name." - ".$account->phone_number."  needs to start : ".$service.PHP_EOL;      
+        $running = shell_exec('service '.$service.' start');
+        echo "Account status: ".$running;
+        sleep(5);
+        $count++;  
+      }      
     }
   }
