@@ -18,7 +18,7 @@
 
       if (!empty($service)) {
         echo "Account: ".$account->name." - ".$account->phone_number."  needs to start : ".$service.PHP_EOL;      
-        $running = shell_exec('service '.$service.' start');
+        $running = shell_exec('sudo service '.$service.' start');
         echo "Account status: ".$running;
         sleep(5);
         $count++;  
