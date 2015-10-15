@@ -8,7 +8,7 @@
 
   _init_db();
   $count = 0;
-  $limit = 10;
+  $limit = 20;
   $accounts = Account::all(array('setup' => true));
   foreach ($accounts as $account) {
     $number = $account->phone_number;
@@ -17,7 +17,8 @@
 	    $service = service_name($service_name);
 
       if (!empty($service)) {
-        echo "Account: ".$account->name." - ".$account->phone_number."  needs to start : ".$service.PHP_EOL;      
+        echo "Account: ".$account->name." - ".$account->phone_number."  needs to start : ".$service.PHP_EOL;
+        shell_exec('rm /var/www/whatsapi-official/src/wadata/*'.$account->phone_number.'*');      
         $running = shell_exec('sudo service '.$service.' start');
         echo "Account status: ".$running;
         sleep(5);
