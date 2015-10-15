@@ -8,7 +8,7 @@
 
   _init_db();
   $count = 0;
-  $limit = 20;
+  $limit = getenv('BATCH_COUNT') || 20;
   $accounts = Account::all(array('setup' => true));
   foreach ($accounts as $account) {
     $number = $account->phone_number;
