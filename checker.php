@@ -6,8 +6,9 @@
 
   Dotenv::load(__DIR__);
 
+  echo "About to start checker".PHP_EOL;
   _init_db();
-  $accounts = Account::all(array('setup' => true));
+  $accounts = Account::all(array('setup' => true));  
   foreach ($accounts as $account) {
     $number = $account->phone_number;
     if (!service_running($number)) {
