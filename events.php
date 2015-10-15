@@ -240,7 +240,7 @@
 
     private function post($url, $data) {
       $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
-      Requests::post($url, $headers, json_encode($data));
+      Requests::post($url, $headers, json_encode($data), array('timeout' => 5000));
     }
 
     private function is_broadcast_receipt($id) {
