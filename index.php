@@ -171,6 +171,17 @@ $app->post('/activate', function() use ($app) {
   
 });
 
+$app->post('/notify', function() use ($app) {
+  $to = $app->request->params('phone_number');
+  $message = $app->request->params('message');
+
+  send_sms($to, $message);
+
+  $app->render(200, array(
+    'sent' => true
+  ));
+});
+
 
 
 
