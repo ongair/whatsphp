@@ -12,5 +12,6 @@
         "mandrill/mandrill": "1.0.*",
         "whatsapp/chat-api": "^3.2",
         "php-activerecord/php-activerecord": "^1.1"
-    }
+    },
+    "version": "0.0.1"
 }
