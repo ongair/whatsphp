@@ -1,12 +1,16 @@
 {
-  "require": {
-    "slim/slim": "2.3.*",
-    "entomb/slim-json-api": "dev-master",
-    "vlucas/phpdotenv": "~1.1",
-    "pubnub/pubnub": "3.7.*",
-    "analog/analog": "dev-master",
-    "rmccue/requests": ">=1.0",
-    "rollbar/rollbar": "~0.11.0",
-    "mandrill/mandrill": "1.0.*"
-  }
+    "name": "ongair/whatsapp",
+    "description": "Service library based on chat-api",
+    "require": {
+        "slim/slim": "2.3.*",
+        "entomb/slim-json-api": "dev-master",
+        "vlucas/phpdotenv": "~1.1",
+        "pubnub/pubnub": "3.7.*",
+        "analog/analog": "dev-master",
+        "rmccue/requests": ">=1.0",
+        "rollbar/rollbar": "~0.11.0",
+        "mandrill/mandrill": "1.0.*",
+        "whatsapp/chat-api": "^3.2",
+        "php-activerecord/php-activerecord": "^1.1"
+    }
 }

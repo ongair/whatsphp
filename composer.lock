@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "99dd1a998e61c71151fc08dc0bd15c9f",
+    "hash": "803e9e5cdabb62d4405e85e550a2530c",
+    "content-hash": "5685cce9d43b0554a604035332936304",
     "packages": [
         {
             "name": "analog/analog",
@@ -12,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbroadway/analog.git",
-                "reference": "4adde973c5c8c4242b1d42541488d12a2f3b3bfe"
+                "reference": "69615c0e8b4033169b45d58f778fd3ba638d1d52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jbroadway/analog/zipball/4adde973c5c8c4242b1d42541488d12a2f3b3bfe",
-                "reference": "4adde973c5c8c4242b1d42541488d12a2f3b3bfe",
+                "url": "https://api.github.com/repos/jbroadway/analog/zipball/69615c0e8b4033169b45d58f778fd3ba638d1d52",
+                "reference": "69615c0e8b4033169b45d58f778fd3ba638d1d52",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +54,7 @@
                 "logging",
                 "syslog"
             ],
-            "time": "2015-03-10 22:53:29"
+            "time": "2015-05-25 15:23:49"
         },
         {
             "name": "entomb/slim-json-api",
@@ -61,12 +62,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/entomb/slim-json-api.git",
-                "reference": "b2f884d4a4a564bad3da3701e0db1a3011cfcdeb"
+                "reference": "6c6e79b1ae7e92ff1b224c80aca23f552bc3c3f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/entomb/slim-json-api/zipball/b2f884d4a4a564bad3da3701e0db1a3011cfcdeb",
-                "reference": "b2f884d4a4a564bad3da3701e0db1a3011cfcdeb",
+                "url": "https://api.github.com/repos/entomb/slim-json-api/zipball/6c6e79b1ae7e92ff1b224c80aca23f552bc3c3f8",
+                "reference": "6c6e79b1ae7e92ff1b224c80aca23f552bc3c3f8",
                 "shasum": ""
             },
             "require": {
@@ -99,7 +100,7 @@
                 "slim",
                 "view"
             ],
-            "time": "2015-01-23 11:55:57"
+            "time": "2016-01-13 09:56:11"
         },
         {
             "name": "mandrill/mandrill",
@@ -143,6 +144,41 @@
                 "email"
             ],
             "time": "2014-10-16 21:08:20"
+        },
+        {
+            "name": "php-activerecord/php-activerecord",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jpfuentes2/php-activerecord.git",
+                "reference": "5a957483801ecc41d95381e9868de7bb08f9be3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jpfuentes2/php-activerecord/zipball/5a957483801ecc41d95381e9868de7bb08f9be3a",
+                "reference": "5a957483801ecc41d95381e9868de7bb08f9be3a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "ActiveRecord.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "php-activerecord is an open source ORM library based on the ActiveRecord pattern.",
+            "homepage": "http://www.phpactiverecord.org/",
+            "keywords": [
+                "activerecord",
+                "orm"
+            ],
+            "time": "2013-04-26 21:01:08"
         },
         {
             "name": "psr/log",
@@ -431,6 +467,55 @@
                 "environment"
             ],
             "time": "2014-12-05 15:19:21"
+        },
+        {
+            "name": "whatsapp/chat-api",
+            "version": "v3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mgp25/Chat-API.git",
+                "reference": "7a7619a8ab2bee61f800c8f3dee9d05110061f90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mgp25/Chat-API/zipball/7a7619a8ab2bee61f800c8f3dee9d05110061f90",
+                "reference": "7a7619a8ab2bee61f800c8f3dee9d05110061f90",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-gd": "*",
+                "ext-mcrypt": "*",
+                "ext-openssl": "*",
+                "ext-pdo": "*",
+                "ext-sockets": "*",
+                "ext-sqlite3": "*",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Chat API Contributing Team",
+                    "homepage": "https://github.com/WHAnonymous/Chat-API/graphs/contributors",
+                    "role": "Contributors"
+                }
+            ],
+            "description": "The PHP WhatsApp library",
+            "keywords": [
+                "Chat-API",
+                "whatsapi",
+                "whatsapp"
+            ],
+            "time": "2016-02-19 19:11:36"
         }
     ],
     "packages-dev": [],

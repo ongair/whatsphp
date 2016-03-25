@@ -36,5 +36,5 @@ The command line args are
 2. URL - The environment key for which url to use
 
 ```
-php ongair.php 254733171036 DB URL
+php service.php 254733171036
 ```
