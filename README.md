@@ -11,9 +11,18 @@ Running the engine
 ==================
 The command line args are
 
-1. DB - The environment key for which database to use
-2. URL - The environment key for which url to use
+1. You need to set some environment variables
 
 ```
-    php service.php 254733171036
+    export db=<database_url>
+    export timeout=60
+    export pub_key=<pubnub_publish_key>
+    export sub_key=<pubnub_subscribe_key>
+    export pub_channel=<pubnub_channel>
+    export url=http://0.0.0.0/
+```
+2. The account which we want to run
+
+```
+    php vendor/ongair/whatsapp/service.php 254733171036
 ```

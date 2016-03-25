@@ -35,8 +35,8 @@
       $this->setEventsToListenFor($this->activeEvents);
 
       // setup the realtime
-      $this->pubnub = new Pubnub(getenv('PUB_KEY'), getenv('SUB_KEY'), "", false);
-      $this->channel = getenv('PUB_CHANNEL')."_".$this->client->getAccount()->phone_number;        
+      $this->pubnub = new Pubnub(getenv('pub_key'), getenv('sub_key'), "", false);
+      $this->channel = getenv('pub_channel')."_".$this->client->getAccount()->phone_number;        
     }
 
     // On successfully connected

@@ -47,7 +47,7 @@
       }      
       catch(Exception $ex) {
         l("Some error with running the application: ".$ex->getMessage());
-        var_dump($ex->getTrace());
+        // var_dump($ex->getTrace());
       }
     }
 
@@ -70,7 +70,7 @@
 
         $start = microtime(true);
         $secs = 0;
-        $timeout = intval(getenv('TIMEOUT'));
+        $timeout = intval(getenv('timeout'));
 
         while($secs < $timeout) {
           // Poll messages
@@ -160,8 +160,8 @@
 
     // Load the database connection
     private function _loadAccount() {
-      $env = getenv('ENV');
-      $db = getenv('DB');
+      $env = getenv('env');
+      $db = getenv('db');
 
       $cfg = ActiveRecord\Config::instance();
       $cfg->set_default_connection($env);
@@ -179,7 +179,7 @@
     public function post($url, $data) {
       $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
 
-      $url = getenv("URL").$url;
+      $url = getenv("url").$url;
       $data['account'] = $this->phoneNumber;
 
       Requests::post($url, $headers, json_encode($data), array('timeout' => 5000));

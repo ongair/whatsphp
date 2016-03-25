@@ -9,7 +9,7 @@
   }
 
   function init_log($account) {
-    $env = getenv('ENV');
+    $env = getenv('env');
     $log_file = 'log/'.$account.'.'.$env.'.log';
     Analog::handler (Analog\Handler\File::init ($log_file));
   }

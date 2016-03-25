@@ -7,7 +7,7 @@
   $account = $argv[1];
 
   # Load environment variables
-  Dotenv::load(__DIR__);
+  // Dotenv::load(__DIR__);
   Requests::register_autoloader();
 
   # create the client
