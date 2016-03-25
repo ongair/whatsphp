@@ -3,6 +3,10 @@ Usage
 
 You need composer in order to run this.
 
+```
+    composer require 'ongair/whatsapp'
+```
+
 Running the engine
 ==================
 The command line args are

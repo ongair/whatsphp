@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "803e9e5cdabb62d4405e85e550a2530c",
-    "content-hash": "5685cce9d43b0554a604035332936304",
+    "hash": "f5b4acdd866c1a64126ba4d30cde7321",
+    "content-hash": "0a7a50835d22248c3e024bcac8a5c450",
     "packages": [
         {
             "name": "analog/analog",
@@ -57,63 +57,17 @@
             "time": "2015-05-25 15:23:49"
         },
         {
-            "name": "entomb/slim-json-api",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/entomb/slim-json-api.git",
-                "reference": "6c6e79b1ae7e92ff1b224c80aca23f552bc3c3f8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/entomb/slim-json-api/zipball/6c6e79b1ae7e92ff1b224c80aca23f552bc3c3f8",
-                "reference": "6c6e79b1ae7e92ff1b224c80aca23f552bc3c3f8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "jsonAPI/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL 3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Jonathan Tavares",
-                    "email": "the.entomb@gmail.com",
-                    "homepage": "https://github.com/entomb",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Slim extension to implement fast JSON API's",
-            "homepage": "https://github.com/entomb/slim-json-api",
-            "keywords": [
-                "api",
-                "json",
-                "middleware",
-                "slim",
-                "view"
-            ],
-            "time": "2016-01-13 09:56:11"
-        },
-        {
             "name": "mandrill/mandrill",
-            "version": "1.0.54",
+            "version": "1.0.55",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/mailchimp/mandrill-api-php.git",
-                "reference": "9f336b08ea148c80db3b694f3dc737cd4f414e19"
+                "reference": "da3adc10042eafac2e53de141b358a52b8e53596"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/mailchimp/mandrill-api-php/get/9f336b08ea148c80db3b694f3dc737cd4f414e19.zip",
-                "reference": "9f336b08ea148c80db3b694f3dc737cd4f414e19",
+                "url": "https://bitbucket.org/mailchimp/mandrill-api-php/get/da3adc10042eafac2e53de141b358a52b8e53596.zip",
+                "reference": "da3adc10042eafac2e53de141b358a52b8e53596",
                 "shasum": ""
             },
             "require": {
@@ -143,7 +97,7 @@
                 "api",
                 "email"
             ],
-            "time": "2014-10-16 21:08:20"
+            "time": "2015-09-22 13:58:03"
         },
         {
             "name": "php-activerecord/php-activerecord",
@@ -220,16 +174,16 @@
         },
         {
             "name": "pubnub/pubnub",
-            "version": "v3.7.6",
+            "version": "v3.7.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pubnub/php.git",
-                "reference": "8666c28cb6d685801602e50942c7f0313a4b85b6"
+                "reference": "fee508e7271cd5c944a73c505fb8d9d540d69f35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pubnub/php/zipball/8666c28cb6d685801602e50942c7f0313a4b85b6",
-                "reference": "8666c28cb6d685801602e50942c7f0313a4b85b6",
+                "url": "https://api.github.com/repos/pubnub/php/zipball/fee508e7271cd5c944a73c505fb8d9d540d69f35",
+                "reference": "fee508e7271cd5c944a73c505fb8d9d540d69f35",
                 "shasum": ""
             },
             "require": {
@@ -273,7 +227,7 @@
                 "real-time",
                 "realtime"
             ],
-            "time": "2015-03-18 21:01:52"
+            "time": "2015-07-24 11:09:26"
         },
         {
             "name": "rmccue/requests",
@@ -419,16 +373,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "732d2adb7d916c9593b9d58c3b0d9ebefead07aa"
+                "reference": "0cac554ce06277e33ddf9f0b7ade4b8bbf2af3fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/732d2adb7d916c9593b9d58c3b0d9ebefead07aa",
-                "reference": "732d2adb7d916c9593b9d58c3b0d9ebefead07aa",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/0cac554ce06277e33ddf9f0b7ade4b8bbf2af3fa",
+                "reference": "0cac554ce06277e33ddf9f0b7ade4b8bbf2af3fa",
                 "shasum": ""
             },
             "require": {
@@ -438,11 +392,6 @@
                 "phpunit/phpunit": "~4.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
             "autoload": {
                 "psr-0": {
                     "Dotenv": "src/"
@@ -466,7 +415,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2014-12-05 15:19:21"
+            "time": "2015-05-30 15:59:26"
         },
         {
             "name": "whatsapp/chat-api",
@@ -520,12 +469,11 @@
     ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
-        "entomb/slim-json-api": 20,
         "analog/analog": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": []

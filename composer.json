@@ -3,7 +3,6 @@
     "description": "Service library based on chat-api",
     "require": {
         "slim/slim": "2.3.*",
-        "entomb/slim-json-api": "dev-master",
         "vlucas/phpdotenv": "~1.1",
         "pubnub/pubnub": "3.7.*",
         "analog/analog": "dev-master",
@@ -14,7 +13,7 @@
         "php-activerecord/php-activerecord": "^1.1"
     },
     "type": "package",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "minimum-stability" : "dev",
     "prefer-stable" : true
 }
