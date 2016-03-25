@@ -4,12 +4,12 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "715aeb479c054eacd785ee707b0eddca",
-    "content-hash": "9a7be0a1bc9b9493111f3d3cf378553b",
+    "hash": "48a5609cb44fb0c7c946f6dc3395c150",
+    "content-hash": "b8127acc3dad5a7ab72226482658112f",
     "packages": [
         {
             "name": "analog/analog",
-            "version": "dev-master",
+            "version": "1.0.7-stable",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jbroadway/analog.git",
@@ -470,9 +470,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "analog/analog": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
