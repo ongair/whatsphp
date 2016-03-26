@@ -16,6 +16,7 @@ The command line args are
 ```
     export db=<database_url>
     export timeout=60
+    export env=production
     export pub_key=<pubnub_publish_key>
     export sub_key=<pubnub_subscribe_key>
     export pub_channel=<pubnub_channel>

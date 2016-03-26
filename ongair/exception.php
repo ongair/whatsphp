@@ -3,8 +3,8 @@
   // Ongair Exception base class
   class OngairException extends Exception {
 
-    const INACTIVE_ACCOUNT = 1;
-    const CONNECTION_ERROR = 0;
+    const INACTIVE_ACCOUNT = 0;
+    const CONNECTION_ERROR = 1;
 
     public function __construct($message, $code, $previous = null) {
       parent::__construct($message, $code, $previous);

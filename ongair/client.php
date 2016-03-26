@@ -36,6 +36,7 @@
         l("Loaded the ".$this->account->name);
 
         $this->_loop();
+        exit(1);
       }      
       catch(OngairException $oEx) {
         l("Ongair specific error: ".$oEx->getMessage());
@@ -46,8 +47,9 @@
         exit($oEx->exitCode());
       }      
       catch(Exception $ex) {
-        l("Some error with running the application: ".$ex->getMessage());
+        l("Error with running the application: ".$ex->getMessage());
         // var_dump($ex->getTrace());
+        exit(1);
       }
     }
 
@@ -57,7 +59,7 @@
       if (!$this->is_active())
         throw new InactiveAccountException($this->phoneNumber);
        
-      $this->waClient = new WhatsProt($this->account->phone_number, $this->account->name, true);
+      $this->waClient = new WhatsProt($this->account->phone_number, $this->account->name, false);
       $events = new Events($this);
 
       try 
@@ -83,7 +85,7 @@
           $secs = intval($now - $start);
           
           // sleep
-          sleep(1);          
+          usleep(1);          
         }
 
         // disconnect

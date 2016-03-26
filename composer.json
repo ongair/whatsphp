@@ -13,6 +13,6 @@
         "php-activerecord/php-activerecord": "^1.1"
     },
     "type": "package",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "license": "GPL-3.0+"
 }

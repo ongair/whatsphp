@@ -7,3 +7,4 @@ vendor/
 log/*.log
 services/
 scheduler.sh
+*env.sh
