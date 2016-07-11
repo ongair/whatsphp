@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0e1ad3f42ef63394683c9235673ecfe9",
-    "content-hash": "b3005ada90b6185c8d630b36a6d94427",
+    "hash": "7794bf66ea226916d048f6ff4064c126",
+    "content-hash": "c9e7f7c3af2ffa42f6e2fca51ca2e396",
     "packages": [
         {
             "name": "analog/analog",
@@ -419,16 +419,16 @@
         },
         {
             "name": "whatsapp/chat-api",
-            "version": "v3.2",
+            "version": "v3.2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mgp25/Chat-API.git",
-                "reference": "7a7619a8ab2bee61f800c8f3dee9d05110061f90"
+                "reference": "c72cad156c9d9ce7953439c089474a7a7320906d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mgp25/Chat-API/zipball/7a7619a8ab2bee61f800c8f3dee9d05110061f90",
-                "reference": "7a7619a8ab2bee61f800c8f3dee9d05110061f90",
+                "url": "https://api.github.com/repos/mgp25/Chat-API/zipball/c72cad156c9d9ce7953439c089474a7a7320906d",
+                "reference": "c72cad156c9d9ce7953439c089474a7a7320906d",
                 "shasum": ""
             },
             "require": {
@@ -454,7 +454,7 @@
             "authors": [
                 {
                     "name": "Chat API Contributing Team",
-                    "homepage": "https://github.com/WHAnonymous/Chat-API/graphs/contributors",
+                    "homepage": "https://github.com/mgp25/Chat-API/graphs/contributors",
                     "role": "Contributors"
                 }
             ],
@@ -464,7 +464,7 @@
                 "whatsapi",
                 "whatsapp"
             ],
-            "time": "2016-02-19 19:11:36"
+            "time": "2016-07-02 12:03:26"
         }
     ],
     "packages-dev": [],
