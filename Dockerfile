@@ -49,6 +49,8 @@ RUN php5enmod mcrypt
 
 RUN mkdir /whatsapp
 RUN cd /whatsapp && composer require ongair/whatsapp
+RUN cd /whatsapp && mkdir logs
+
 
 # Tests build
 RUN php -v
