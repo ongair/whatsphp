@@ -9,7 +9,7 @@ RUN apt-get update -y
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:ondrej/php5-5.6
 RUN apt-get update -y
-RUN apt-get install -y vim
+RUN apt-get install -y vim telnet
 RUN apt-get install -y php5  php5-dev
 
 # Installs curl, pear, wget, git, memcached and mysql-server
@@ -58,3 +58,6 @@ RUN phpcs --version
 RUN php -i | grep timezone
 RUN php -r "echo json_encode(get_loaded_extensions());"
 RUN php -m | grep -w --color 'curve25519\|protobuf\|crypto'
+
+ENV env production
+ENV timeout 60
