@@ -1,7 +1,5 @@
 <?php
 
-  use Pubnub\Pubnub;
-
   class Events
   {
     // the Ongair client
@@ -32,11 +30,7 @@
     // Constructor
     public function __construct($client) {
       $this->client = $client;      
-      $this->setEventsToListenFor($this->activeEvents);
-
-      // setup the realtime
-      $this->pubnub = new Pubnub(getenv('pub_key'), getenv('sub_key'), "", false);
-      $this->channel = getenv('pub_channel')."_".$this->client->getAccount()->phone_number;        
+      $this->setEventsToListenFor($this->activeEvents);      
     }
 
     // On successfully connected
@@ -78,7 +72,6 @@
       $this->client->post('/messages', $data);
 
       $notification = array('type' => 'text', 'phone_number' => $phone_number , 'text' => $body, 'name' => $name);
-      $this->sendRealtime($notification);
     }
 
     // When a message is received
@@ -153,10 +146,5 @@
       }
 
       return $this;
-    }
-
-    // sendRealtime to pubnub
-    private function sendRealtime($message) {
-      $info = $this->pubnub->publish($this->channel, $message);
     }
   }
