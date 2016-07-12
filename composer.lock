@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0e1ad3f42ef63394683c9235673ecfe9",
-    "content-hash": "b3005ada90b6185c8d630b36a6d94427",
+    "hash": "3329f3016c91c7a65237b941cab1a752",
+    "content-hash": "fdd4392a568b7d4f3988a60529dbfb89",
     "packages": [
         {
             "name": "analog/analog",
@@ -171,63 +171,6 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
-        },
-        {
-            "name": "pubnub/pubnub",
-            "version": "v3.7.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pubnub/php.git",
-                "reference": "fee508e7271cd5c944a73c505fb8d9d540d69f35"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pubnub/php/zipball/fee508e7271cd5c944a73c505fb8d9d540d69f35",
-                "reference": "fee508e7271cd5c944a73c505fb8d9d540d69f35",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpdocumentor/phpdocumentor": "dev-master",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Pubnub\\": "composer/lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dmitry Medvedev",
-                    "email": "gektor1@gmail.com"
-                },
-                {
-                    "name": "Victor Kislichenko",
-                    "email": "dofer@bigmir.net"
-                },
-                {
-                    "name": "PubNub Support",
-                    "email": "support@pubnub.com"
-                }
-            ],
-            "description": "The Only Global Network For Real-Time Data -- PubNub!",
-            "homepage": "http://www.pubnub.com/",
-            "keywords": [
-                "ajax",
-                "api",
-                "push",
-                "real time",
-                "real-time",
-                "realtime"
-            ],
-            "time": "2015-07-24 11:09:26"
         },
         {
             "name": "rmccue/requests",
@@ -419,16 +362,16 @@
         },
         {
             "name": "whatsapp/chat-api",
-            "version": "v3.2",
+            "version": "v3.2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mgp25/Chat-API.git",
-                "reference": "7a7619a8ab2bee61f800c8f3dee9d05110061f90"
+                "reference": "c72cad156c9d9ce7953439c089474a7a7320906d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mgp25/Chat-API/zipball/7a7619a8ab2bee61f800c8f3dee9d05110061f90",
-                "reference": "7a7619a8ab2bee61f800c8f3dee9d05110061f90",
+                "url": "https://api.github.com/repos/mgp25/Chat-API/zipball/c72cad156c9d9ce7953439c089474a7a7320906d",
+                "reference": "c72cad156c9d9ce7953439c089474a7a7320906d",
                 "shasum": ""
             },
             "require": {
@@ -454,7 +397,7 @@
             "authors": [
                 {
                     "name": "Chat API Contributing Team",
-                    "homepage": "https://github.com/WHAnonymous/Chat-API/graphs/contributors",
+                    "homepage": "https://github.com/mgp25/Chat-API/graphs/contributors",
                     "role": "Contributors"
                 }
             ],
@@ -464,7 +407,7 @@
                 "whatsapi",
                 "whatsapp"
             ],
-            "time": "2016-02-19 19:11:36"
+            "time": "2016-07-02 12:03:26"
         }
     ],
     "packages-dev": [],
