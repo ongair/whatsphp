@@ -11,7 +11,7 @@
 
   date_default_timezone_set('UTC');
 
-  $username = $argv[1];
+  $username = empty($argv[1]? "ACCOUNT" : $argv[1]);
   $db_key = empty($argv[2])? "DB" : $argv[2];
   $url_key = empty($argv[3])? "URL" : $argv[3];
 
