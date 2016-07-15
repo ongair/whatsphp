@@ -10,7 +10,7 @@
 
   function init_log($account) {
     $env = getenv('env');
-    $log_file = 'log/'.$account.'.'.$env.'.log';
+    $log_file = '/var/log/ongair.'.$account.'.'.$env.'.log';
     Analog::handler (Analog\Handler\File::init ($log_file));
   }
 

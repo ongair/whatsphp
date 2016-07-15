@@ -22,5 +22,6 @@ The command line args are
 2. The account which we want to run
 
 ```
-    php vendor/ongair/whatsapp/service.php 254733171036
+    export ACCOUNT=254733171036
+    php vendor/ongair/whatsapp/ongair.php
 ```
