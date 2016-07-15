@@ -1,3 +1,0 @@
-#! /bin/sh
-
-/usr/bin/php /var/www/whatsapp/scheduler.php >> /root/test
