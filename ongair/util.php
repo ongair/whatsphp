@@ -14,7 +14,12 @@
 
   function init_log($account) {
     $env = getenv('env');
-    $log_file = '/var/log/ongair.'.$account.'.'.$env.'.log';
+
+    if ($env == 'production')
+      $log_file = '/var/log/ongair.'.$account.'.'.$env.'.log';
+    else
+      $log_file = 'log/'.$account.'.'.$env.'.log';
+
     Analog::handler (Analog\Handler\File::init ($log_file));
   }
 
@@ -48,5 +53,16 @@
     } 
     catch (MultipartUploadException $e) {
       return null;
+    }
+  }
+
+  function get_extension($mime_type) {
+    switch ($mime_type) {
+      case 'image/jpeg':
+        return ".jpg";
+      case 'image/png':
+        return ".png";
+      default:
+        return "";
     }
   }
