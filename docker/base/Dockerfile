@@ -15,7 +15,7 @@ RUN apt-get install -y vim telnet sudo
 RUN apt-get install -y php5 php5-dev --force-yes
 
 # Installs curl, pear, wget, git, memcached and mysql-server
-RUN apt-get install -y curl php-pear wget git memcached monit
+RUN apt-get install -y curl php-pear wget git memcached monit nano
 
 # Installs Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -33,17 +33,6 @@ RUN apt-get install -y ffmpeg
 RUN apt-get install -y --force-yes php5-gd php5-curl libapache2-mod-php5 php5-sqlite php5-mysql php5-mcrypt
 RUN php5enmod mcrypt
 
-RUN mkdir /whatsapp
-RUN cd /whatsapp && composer require ongair/whatsapp
-RUN cd /whatsapp && mkdir logs
-
-# Install upstart
-ADD ./ongair.conf /etc/init/ongair.conf
-
 # Tests build
 RUN php -v
 RUN php -m | grep -w --color 'curve25519\|protobuf\|crypto'
-
-ENV ENV production
-ENV TIMEOUT 60
-ENV WAIT_TIMEOUT 10
