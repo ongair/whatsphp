@@ -14,7 +14,7 @@
       'onGetMessage',
       'onMessageReceivedClient',
       'onGetSyncResult',
-      // 'onGetImage',
+      'onGetImage',
       // 'onGetGroupMessage',
       // 'onGetGroupImage',
       // 'onGetVideo',
@@ -56,7 +56,21 @@
     {
       l("Image received from $from url is $image_url");
       $post_url = '/upload';
-      $data = array('message' => array('url' => $image_url, 'message_type' => 'Image', 'phone_number' => get_phone_number($from), 'whatsapp_message_id' => $id, 'name' => $name ));
+
+      $account = $this->client->getAccount();
+      $id = $account->id;
+
+      $filename = $id.".".get_extension($mimeType);
+      file_put_contents("tmp/$filename", $file);
+      
+
+      $url = upload_file($id, $filename, "tmp/$filename");
+      
+      l("Uploaded to ".$url);
+      unlink("tmp/$filename");
+
+      $data = array('message' => array('url' => $url, 'message_type' => 'Image', 'phone_number' => get_phone_number($from),
+        'whatsapp_message_id' => $id, 'name' => $name, 'caption' => $caption ));
 
       $this->client->post($post_url, $data);
     }
@@ -70,8 +84,6 @@
 
       $data = array('message' => array('text' => $body, 'phone_number' => $phone_number, 'message_type' => 'Text', 'whatsapp_message_id' => $id, 'name' => $name ));
       $this->client->post('/messages', $data);
-
-      $notification = array('type' => 'text', 'phone_number' => $phone_number , 'text' => $body, 'name' => $name);
     }
 
     // When a message is received
