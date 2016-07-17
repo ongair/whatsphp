@@ -10,6 +10,7 @@ ADD ./service.sh /whatsapp/service.sh
 ADD ./monit /etc/monit/conf.d/ongair
 ADD ./ongair.sh /etc/init.d/ongair
 
-ENV ENV production
-ENV TIMEOUT 60
-ENV WAIT_TIMEOUT 10
+ENV env production
+ENV timeout 300
+ENV wait_timeout 30
+ENV s3_bucket ongair-cdn
