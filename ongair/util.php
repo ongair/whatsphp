@@ -1,6 +1,10 @@
 <?php
 
   use Analog\Handler\File;
+  use Aws\S3\S3Client;
+  use Aws\Credentials\Credentials;
+  use Aws\S3\MultipartUploader;
+  use Aws\Exception\MultipartUploadException;
 
   function l($message)
   {
@@ -22,4 +26,27 @@
   function get_phone_number($jid)
   {
     return split_jid($jid);
+  }
+
+  function upload_file($folder, $name, $file)
+  {
+    $secret = getenv('aws_secret_access_key');
+    $key = getenv('aws_key_id');
+    $bucket = getenv('aws_bucket');
+    
+    $credentials = new Credentials($key, $secret);
+    $client = new S3Client([ 'version' => 'latest', 'region' => 'ap-southeast-1', 'credentials' => $credentials ]);
+
+    $uploader = new MultipartUploader($client, $file, [
+      'bucket' => $bucket,
+      'key'    => $folder.'/'.$name,
+    ]);
+
+    try {
+      $result = $uploader->upload();
+      return $result['ObjectURL'];
+    } 
+    catch (MultipartUploadException $e) {
+      return null;
+    }
   }
