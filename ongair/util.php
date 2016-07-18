@@ -12,17 +12,6 @@
     Analog::log ($message);
   }
 
-  function init_log($account) {
-    $env = getenv('env');
-
-    if ($env == 'production')
-      $log_file = '/var/log/ongair.'.$account.'.'.$env.'.log';
-    else
-      $log_file = 'log/'.$account.'.'.$env.'.log';
-
-    Analog::handler (Analog\Handler\File::init ($log_file));
-  }
-
   function info($message) {    
     echo date("H:i:s")." ".$message."\r\n";
     $logger = OngairLogger::getLogger();    
