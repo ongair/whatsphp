@@ -42,6 +42,7 @@
       catch(BlockedException $bEx) {
         l("Blocked ".$bEx->getMessage());
 
+        notify_slack("Account ".$this->account->name."(".$this->account->phone_number.") failed authentication.");
         // exit($bEx->exitCode());
         return false;
       }
