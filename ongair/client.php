@@ -101,7 +101,7 @@
         $this->getClient()->disconnect(); 
       }
       catch(ConnectionException $ce) {
-        throw new ConnectionException($this->phoneNumber, "Unexpected connection exception", $ce);
+        throw new OngairConnectionException($this->phoneNumber, "Unexpected connection exception", $ce);
       }
 
     }

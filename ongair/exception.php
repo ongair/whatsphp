@@ -4,7 +4,7 @@
   class OngairException extends Exception {
 
     const INACTIVE_ACCOUNT = 0;
-    const CONNECTION_ERROR = 1;
+    const CONNECTION_ERROR = 0;
     const BLOCKED_ERROR = 1;
 
     public function __construct($message, $code, $previous = null) {
@@ -36,6 +36,7 @@
     }
   }
 
+  // Blocked account exception
   class BlockedException extends OngairException {
     public function __construct($account) {
       parent::__construct("$account is blocked", OngairException::BLOCKED_ERROR);
