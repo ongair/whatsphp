@@ -49,6 +49,9 @@
     // On login failed
     public function onLoginFailed($me, $data) {
       l('Login failed '.$data);
+
+      if ($data == "not-authorized")
+        throw new BlockedException(get_phone_number($me));
     }
 
     // On image received

@@ -36,20 +36,28 @@
         l("Loaded the ".$this->account->name);
 
         $this->_loop();
-        exit(1);
+        // exit(1);
+        return true;
       }      
+      catch(BlockedException $bEx) {
+        l("Blocked ".$bEx->getMessage());
+
+        // exit($bEx->exitCode());
+        return false;
+      }
       catch(OngairException $oEx) {
         l("Ongair specific error: ".$oEx->getMessage());
 
         l("Can we restart? ".$oEx->canRestart());
 
         // Exit with the correct code
-        exit($oEx->exitCode());
-      }      
+        // exit($oEx->exitCode());
+        return $oEx->canRestart();
+      }            
       catch(Exception $ex) {
         l("Error with running the application: ".$ex->getMessage());
-        // var_dump($ex->getTrace());
-        exit(1);
+        // exit(1);
+        return true;
       }
     }
 

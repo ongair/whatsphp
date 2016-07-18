@@ -11,14 +11,19 @@
   Requests::register_autoloader();
 
   # create the client
-  $client = new Client($account);
-  $client->run();
-
-  l('Finished normally...');
-
+  $run = true;
   $wait = intval(getenv('wait_timeout'));
-  l('Going to wait for '.$wait);
+  
+  while($run) {
+    $client = new Client($account);
+    $run = $client->run();
 
-  sleep($wait);
+    l("Finished. Re-run ".($run == true));
 
-  exit(2);
+    if ($run) {
+      l('Going to wait for '.$wait);
+      sleep($wait);  
+    }      
+  }
+  
+  exit(0);
