@@ -25,3 +25,11 @@ The command line args are
     export ACCOUNT=254733171036
     php vendor/ongair/whatsapp/ongair.php
 ```
+
+Running Containers
+==================
+If running via a container you need to setup the same variables then run the image
+
+```
+    docker run -e db=$db -e url=$url -e aws_key_id=$aws_key_id -e aws_secret_access_key=$aws_secret_access_key -e slack_token=$slack_token -e account=<account> -t ongair/ongair:whatsphp
+```
