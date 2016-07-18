@@ -12,6 +12,7 @@
 
   # create the client
   $run = true;
+  $debug = getenv('debug'); 
   $wait = intval(getenv('wait_timeout'));
   
   while($run) {
