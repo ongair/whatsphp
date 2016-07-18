@@ -33,6 +33,10 @@
     return split_jid($jid);
   }
 
+  function is_prod() {
+    return getenv('env') == 'production';
+  }
+
   function upload_file($folder, $name, $file)
   {
     $secret = getenv('aws_secret_access_key');
@@ -74,7 +78,8 @@
       $payload = array('channel' => "#activation", 'username' => 'webhookbot', 'icon_emoji' => ':ghost:', 'text' => $msg);      
       $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
 
-      Requests::post($url, $headers, json_encode($payload), array('timeout' => 5000));
+      if (is_prod())
+        Requests::post($url, $headers, json_encode($payload), array('timeout' => 5000));
     }
     catch(Exception $ex) {
       l("Error with posting to slack: ".$ex->getMessage());
