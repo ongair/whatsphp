@@ -66,3 +66,17 @@
         return "";
     }
   }
+
+  function notify_slack($msg) {
+    $slack_token = getenv('slack_token');
+    $url = "https://ongair.slack.com/services/hooks/incoming-webhook?token=$slack_token";
+    try {
+      $payload = array('channel' => "#activation", 'username' => 'webhookbot', 'icon_emoji' => 'ghost', 'text' => $msg);      
+      $headers = array('Content-Type' => 'application/json', 'Accept' => 'application/json');
+
+      Requests::post($url, $headers, json_encode($payload), array('timeout' => 5000));
+    }
+    catch(Exception $ex) {
+      l("Error with posting to slack: ".$ex->getMessage());
+    }
+  }
