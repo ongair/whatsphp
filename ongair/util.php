@@ -4,7 +4,7 @@
   use Aws\S3\S3Client;
   use Aws\Credentials\Credentials;
   use Aws\S3\MultipartUploader;
-  use Aws\Exception\MultipartUploadException;
+  use Aws\Exception\MultipartUploadException; 
 
   function l($message)
   {
@@ -21,6 +21,11 @@
       $log_file = 'log/'.$account.'.'.$env.'.log';
 
     Analog::handler (Analog\Handler\File::init ($log_file));
+  }
+
+  function info($message) {    
+    $logger = OngairLogger::getLogger();
+    $logger->info($message);
   }
 
   function split_jid($jid) {

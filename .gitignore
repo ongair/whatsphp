@@ -8,3 +8,4 @@ log/*.log
 services/
 scheduler.sh
 *env.sh
+test.php
