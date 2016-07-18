@@ -14,17 +14,18 @@
   $run = true;
   $debug = getenv('debug'); 
   $wait = intval(getenv('wait_timeout'));
+  $count = 1;
   
   while($run) {
     $client = new Client($account);
     $run = $client->run();
 
-    l("Finished. Re-run ".($run == true));
+    info("Finished execution ".$count.". Re-run ".($run == true));
 
     if ($run) {
-      l('Going to wait for '.$wait);
       sleep($wait);  
     }      
+    $count++;
   }
   
   exit(0);

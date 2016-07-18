@@ -24,8 +24,19 @@
   }
 
   function info($message) {    
-    $logger = OngairLogger::getLogger();
+    echo date("H:i:s")." ".$message."\r\n";
+    $logger = OngairLogger::getLogger();    
     $logger->info($message);
+  }
+
+  function err($message, $ex) {
+    echo date("H:i:s")." ".$message."\r\n";
+    $logger = OngairLogger::getLogger();
+    $logger->error($message, [$ex]);
+  }
+
+  function dbg($message) {
+    echo date("H:i:s")." ".$message."\r\n";
   }
 
   function split_jid($jid) {
@@ -87,6 +98,6 @@
         Requests::post($url, $headers, json_encode($payload), array('timeout' => 5000));
     }
     catch(Exception $ex) {
-      l("Error with posting to slack: ".$ex->getMessage());
+      err("Error with posting to slack: ".$ex->getMessage(), $ex);
     }
   }

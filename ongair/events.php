@@ -35,20 +35,20 @@
 
     // On successfully connected
     public function onConnect($me, $socket) {
-      l("Connected");
+      info("Connected");
       $this->client->toggleConnection(true);
     }
 
     // On disconnected
     public function onDisconnect($me, $socket)
     {
-      l("Disconnected");
+      err("Disconnected");
       $this->client->toggleConnection(false);
     }
 
     // On login failed
     public function onLoginFailed($me, $data) {
-      l('Login failed '.$data);
+      err('Login failed '.$data, null);
 
       if ($data == "not-authorized")
         throw new BlockedException(get_phone_number($me));
@@ -57,7 +57,7 @@
     // On image received
     public function onGetImage( $me, $from, $id, $type, $time, $name, $size, $image_url, $file, $mimeType, $fileHash, $width, $height, $preview, $caption )
     {
-      l("Image received from $from url is $image_url");
+      info("Image received from $from url is $image_url");
       $post_url = '/upload';
 
       $account = $this->client->getAccount();
@@ -69,7 +69,7 @@
 
       $url = upload_file($id, $filename, "tmp/$filename");
       
-      l("Uploaded to ".$url);
+      dbg("Uploaded to ".$url);
       unlink("tmp/$filename");
 
       $data = array('message' => array('url' => $url, 'message_type' => 'Image', 'phone_number' => get_phone_number($from),
@@ -81,7 +81,7 @@
     // When a text message has been received
     public function onGetMessage( $me, $from, $id, $type, $time, $name, $body )
     {
-      l("Message from $name: $body");
+      info("Message from $name: $body");
     
       $phone_number = get_phone_number($from);
 
@@ -91,7 +91,7 @@
 
     // When a message is received
     public function onMessageReceivedClient($me, $from, $id, $type, $time, $participant) {
-      l("Message received client $type - $from");
+      info("Message received client $type - $from");
 
       $account = $this->client->getAccount();
       $job = JobLog::find_by_whatsapp_message_id_and_account_id($id, $account->id);
@@ -116,7 +116,7 @@
 
     // on sync result
     public function onGetSyncResult($result) {
-      l("Received result from sync");
+      dbg("Received result from sync");
 
       $existing = array();
       foreach ($result->existing as $number) {
@@ -130,7 +130,7 @@
 
     // On login success
     public function onLoginSuccess($me, $kind, $status, $creation, $expiration) {
-      l('Logged in '.$status);      
+      info('Logged in '.$status);      
       $this->client->post('/status', array('status' => 1, 'message' => 'Connected' ));
     }
 

@@ -3,6 +3,7 @@
   require_once('util.php');
   require_once('exception.php');
   require_once('events.php');
+  require_once('logger.php');
 
   class Client {
 
@@ -24,40 +25,38 @@
     public function run() {
       try
       {
-        # init the log file
-        init_log($this->phoneNumber);
-        l("About to run: $this->phoneNumber");
+        dbg("About to run: $this->phoneNumber");
 
         # init the db
         $this->account = $this->_loadAccount();
         if ($this->account == null)  
           throw new InactiveAccountException($this->phoneNumber);
 
-        l("Loaded the ".$this->account->name);
+        dbg("Loaded the ".$this->account->name);
 
         $this->_loop();
         // exit(1);
         return true;
       }      
       catch(BlockedException $bEx) {
-        l("Blocked ".$bEx->getMessage());
+        err("Blocked ".$bEx->getMessage(), $bEx);
 
         notify_slack("Account ".$this->account->name."(".$this->account->phone_number.") failed authentication.");
         // exit($bEx->exitCode());
         return false;
       }
       catch(OngairException $oEx) {
-        l("Ongair specific error: ".$oEx->getMessage());
+        err("Ongair specific error: ".$oEx->getMessage(), $oEx, $oEx->canRestart());
 
-        l("Can we restart? ".$oEx->canRestart());
+        dbg("Can we restart? ".$oEx->canRestart());
 
         // Exit with the correct code
         // exit($oEx->exitCode());
         return $oEx->canRestart();
       }            
       catch(Exception $ex) {
-        l("Error with running the application: ".$ex->getMessage());
         // exit(1);
+        err("Error with running the application: ".$ex->getMessage(), $ex->getMessage());
         return true;
       }
     }
@@ -109,7 +108,7 @@
     // loop through pending work
     private function work() {
       $jobs = JobLog::all(array('sent' => false, 'account_id' => $this->account->id, 'pending' => false));
-      l("Number of jobs ".count($jobs));
+      dbg("Number of jobs ".count($jobs));
 
       if(count($jobs) > 0) {
         foreach ($jobs as $job) {
@@ -128,7 +127,7 @@
           $this->sync($job);
           break;
         default:
-          l("Not yet running jobs of type ".$job->method);
+          dbg("Not yet running jobs of type ".$job->method);
       }
     }
 
@@ -143,7 +142,7 @@
     // Send a text message
     private function sendMessage($job) {      
       $id = $this->getClient()->sendMessage($job->targets, $job->args);      
-      l("Sent ".$job->args." to ".$job->targets);
+      info("Sent ".$job->args." to ".$job->targets);
       $job->whatsapp_message_id = $id;
       $job->sent = true;
       $job->save();
@@ -195,6 +194,6 @@
 
       Requests::post($url, $headers, json_encode($data), array('timeout' => 5000));
 
-      l("Posted ".json_encode($data)." to the server : $url");
+      dbg("Posted ".json_encode($data)." to the server : $url");
     }
   }
