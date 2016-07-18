@@ -15,7 +15,7 @@ RUN apt-get install -y vim telnet sudo
 RUN apt-get install -y php5 php5-dev --force-yes
 
 # Installs curl, pear, wget, git, memcached and mysql-server
-RUN apt-get install -y curl php-pear wget git memcached monit nano
+RUN apt-get install -y curl php-pear wget git memcached monit nano supervisor
 
 # Installs Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

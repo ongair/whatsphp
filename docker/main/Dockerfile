@@ -14,3 +14,8 @@ ENV env production
 ENV timeout 300
 ENV wait_timeout 30
 ENV s3_bucket ongair-cdn
+ENV debug true
+
+
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+CMD ["/usr/bin/supervisord"]
