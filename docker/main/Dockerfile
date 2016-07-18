@@ -7,7 +7,6 @@ RUN cd /whatsapp && mkdir logs
 
 # Install upstart
 ADD ./service.sh /whatsapp/service.sh
-ADD ./ongair.sh /etc/init.d/ongair
 
 ENV env production
 ENV timeout 300
