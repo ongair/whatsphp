@@ -126,6 +126,9 @@
         case "sync":
           $this->sync($job);
           break;
+        case "sendImage":
+          $this->sendImage($job);
+          break;
         default:
           dbg("Not yet running jobs of type ".$job->method);
       }
@@ -146,6 +149,26 @@
       $job->whatsapp_message_id = $id;
       $job->sent = true;
       $job->save();
+    }
+
+    // Send an image message
+    private function sendImage($job) {
+      $message = Message::find_by_id($job->message_id);
+      $caption = $message->text;
+
+      $asset = Asset::find_by_id($message->asset_id);
+      $url = $asset->url;
+
+      $path = download($url);
+      if ($path) {
+        $id = $this->getClient()->sendMessageImage($job->targets, $path, false, 0, "", $caption);
+        info("Sent image to ".$job->targets);
+        $job->whatsapp_message_id = $id;
+        $job->sent = true;
+        $job->save();
+      }
+      else
+        err("Was not able to download image from ".$url);
     }
 
     // client accessor

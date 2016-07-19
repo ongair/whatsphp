@@ -76,6 +76,24 @@
     }
   }
 
+  function download($url) {
+    $rand = substr(uniqid('', true), -8);
+    $filename = "tmp/$rand";
+
+    try
+    {
+      file_put_contents($filename, file_get_contents($url));
+      $mime = getimagesize($filename)['mime'];
+      $extension = get_extension($mime);
+      $path = $filename.$extension;
+      rename($filename, $path);
+      return $path;
+    }
+    catch(Exception $e) {
+      return null;
+    }
+  }
+
   function notify_slack($msg) {
     $slack_token = getenv('slack_token');
     $url = "https://ongair.slack.com/services/hooks/incoming-webhook?token=$slack_token";
