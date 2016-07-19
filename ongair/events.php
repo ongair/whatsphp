@@ -64,13 +64,13 @@
       $id = $account->id;
 
       $filename = $id.".".get_extension($mimeType);
-      file_put_contents("tmp/$filename", $file);
+      file_put_contents("/tmp/$filename", $file);
       
 
-      $url = upload_file($id, $filename, "tmp/$filename");
+      $url = upload_file($id, $filename, "/tmp/$filename");
       
       dbg("Uploaded to ".$url);
-      unlink("tmp/$filename");
+      unlink("/tmp/$filename");
 
       $data = array('message' => array('url' => $url, 'message_type' => 'Image', 'phone_number' => get_phone_number($from),
         'whatsapp_message_id' => $id, 'name' => $name, 'caption' => $caption ));
