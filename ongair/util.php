@@ -78,7 +78,7 @@
 
   function download($url) {
     $rand = substr(uniqid('', true), -8);
-    $filename = "tmp/$rand";
+    $filename = "/tmp/$rand";
 
     try
     {

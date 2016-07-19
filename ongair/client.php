@@ -166,6 +166,7 @@
         $job->whatsapp_message_id = $id;
         $job->sent = true;
         $job->save();
+        unlink($path);
       }
       else
         err("Was not able to download image from ".$url);
