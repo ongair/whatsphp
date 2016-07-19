@@ -14,4 +14,4 @@ ENV wait_timeout 30
 ENV s3_bucket ongair-cdn
 ENV debug false
 
-CMD cd whatsapp && ./service.sh
+#CMD cd whatsapp && ./service.sh
