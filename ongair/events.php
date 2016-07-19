@@ -42,7 +42,7 @@
     // On disconnected
     public function onDisconnect($me, $socket)
     {
-      err("Disconnected");
+      err(get_phone_number($me)." was disconnected.", new OngairConnectionException(get_phone_number($me), "Account was disconnected"));
       $this->client->toggleConnection(false);
     }
 

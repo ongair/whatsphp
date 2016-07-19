@@ -31,7 +31,7 @@
 
   // Connection exception
   class OngairConnectionException extends OngairException {
-    public function __construct($account, $message, Exception $previous) {
+    public function __construct($account, $message, Exception $previous = null) {
       parent::__construct($message, OngairException::CONNECTION_ERROR, $previous);
     }
   }
