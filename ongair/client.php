@@ -132,8 +132,21 @@
         case "profile_setStatus":
           $this->setProfileStatus($job);
           break;
+        case "setProfilePicture":
+          $this->setProfilePicture($job);
+          break;
         default:
           dbg("Not yet running jobs of type ".$job->method);
+      }
+    }
+
+    // Set profile picture
+    private function setProfilePicture($job) {
+      $path = download($job->args);
+      if ($path) {
+        $this->getClient()->sendSetProfilePicture($path);
+        $job->sent = true;
+        $job->save();
       }
     }
 
