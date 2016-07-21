@@ -38,6 +38,10 @@
     return split_jid($jid);
   }
 
+  function startsWith($haystack, $needle) {
+    return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
+  }
+
   function is_prod() {
     return getenv('env') == 'production';
   }
@@ -79,6 +83,9 @@
   function download($url) {
     $rand = substr(uniqid('', true), -8);
     $filename = "/tmp/$rand";
+
+    if (startsWith($url, "//"))
+      $url = "https:$url";
 
     try
     {
