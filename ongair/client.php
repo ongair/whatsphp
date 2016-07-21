@@ -129,9 +129,20 @@
         case "sendImage":
           $this->sendImage($job);
           break;
+        case "profile_setStatus":
+          $this->setProfileStatus($job);
+          break;
         default:
           dbg("Not yet running jobs of type ".$job->method);
       }
+    }
+
+    // Set profile status
+    private function setProfileStatus($job) {
+      $this->getClient()->sendStatusUpdate($job->args);
+      info("Set the status text to ".$job->args);
+      $job->sent = true;
+      $job->save();      
     }
 
     // Perform sync jobs
