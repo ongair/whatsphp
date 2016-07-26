@@ -57,7 +57,7 @@
     // On image received
     public function onGetImage( $me, $from, $id, $type, $time, $name, $size, $image_url, $file, $mimeType, $fileHash, $width, $height, $preview, $caption )
     {
-      info("Image received from $from url is $image_url");
+      info("Image $id received from $from url is $image_url");
       $post_url = '/upload';
 
       $account = $this->client->getAccount();
@@ -91,7 +91,7 @@
 
     // When a message is received
     public function onMessageReceivedClient($me, $from, $id, $type, $time, $participant) {
-      info("Message received client $type - $from");
+      info("Message $id received client $type - $from");
 
       $account = $this->client->getAccount();
       $job = JobLog::find_by_whatsapp_message_id_and_account_id($id, $account->id);
