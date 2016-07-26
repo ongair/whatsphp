@@ -1,8 +1,10 @@
 FROM ongair/ongair:14.04_php5.6
 MAINTAINER Ongair
 
+ARG RELEASE
+
 RUN mkdir /whatsapp
-RUN cd /whatsapp && composer require ongair/whatsapp
+RUN cd /whatsapp && composer require ongair/whatsapp:${RELEASE}
 RUN cd /whatsapp && mkdir logs
 
 # Install upstart
