@@ -63,7 +63,7 @@
       $account = $this->client->getAccount();
       $account_id = $account->id;
 
-      $filename = $id.".".get_extension($mimeType);
+      $filename = $id.get_extension($mimeType);
       file_put_contents("/tmp/$filename", $file);
       
 
