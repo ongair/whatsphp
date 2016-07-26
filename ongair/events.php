@@ -61,13 +61,13 @@
       $post_url = '/upload';
 
       $account = $this->client->getAccount();
-      $id = $account->id;
+      $account_id = $account->id;
 
       $filename = $id.".".get_extension($mimeType);
       file_put_contents("/tmp/$filename", $file);
       
 
-      $url = upload_file($id, $filename, "/tmp/$filename");
+      $url = upload_file($account_id, $filename, "/tmp/$filename");
       
       dbg("Uploaded to ".$url);
       unlink("/tmp/$filename");
