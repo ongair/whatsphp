@@ -145,6 +145,7 @@
       $path = download($job->args);
       if ($path) {
         $this->getClient()->sendSetProfilePicture($path);
+        info("Set the profile picture to ".$job->args);
         $job->sent = true;
         $job->save();
       }
