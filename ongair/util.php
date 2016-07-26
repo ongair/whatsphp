@@ -50,7 +50,7 @@
   {
     $secret = getenv('aws_secret_access_key');
     $key = getenv('aws_key_id');
-    $bucket = getenv('aws_bucket');
+    $bucket = getenv('s3_bucket');
     
     $credentials = new Credentials($key, $secret);
     $client = new S3Client([ 'version' => 'latest', 'region' => 'ap-southeast-1', 'credentials' => $credentials ]);
